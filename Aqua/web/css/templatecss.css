@@ -129,8 +129,9 @@ and open the template in the editor.
 }
 */
 
-.red_text {
+.text_color {
     color: red !important; /* red text color */
+    font-size: 80%;
 }
 
 /* style for the title of the bookstore */

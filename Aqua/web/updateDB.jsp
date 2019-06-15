@@ -105,9 +105,9 @@
             // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
             form_title = AquaMethods.addBacksl(form_title);
             form_auth = AquaMethods.addBacksl(form_auth);
-            form_isbn = AquaMethods.addBacksl(form_isbn);
-            form_price = AquaMethods.addBacksl(form_price);
-            form_pages = AquaMethods.addBacksl(form_pages);
+            //form_isbn = AquaMethods.addBacksl(form_isbn);
+            //form_price = AquaMethods.addBacksl(form_price);
+            //form_pages = AquaMethods.addBacksl(form_pages);
             form_publ = AquaMethods.addBacksl(form_publ);
             form_descr = AquaMethods.addBacksl(form_descr);
             
@@ -122,8 +122,8 @@
             String prev_isbn = (String)hSession.getAttribute("prev_isbn"); // retrieving the ISBN
             
             // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
-            prev_title = AquaMethods.addBacksl(prev_title);
-            prev_auth = AquaMethods.addBacksl(prev_auth);
+            //prev_title = AquaMethods.addBacksl(prev_title);
+            //prev_auth = AquaMethods.addBacksl(prev_auth);
                     
             //Class.forName("com.mysql.jdbc.Driver");
             //@@@@@@@@@@ Connection  con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "root");

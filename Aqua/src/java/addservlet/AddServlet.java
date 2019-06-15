@@ -100,11 +100,12 @@ public class AddServlet extends HttpServlet {
         // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
         form_title = AquaMethods.addBacksl(form_title);
         form_auth = AquaMethods.addBacksl(form_auth);
-        form_isbn = AquaMethods.addBacksl(form_isbn);
-        form_price = AquaMethods.addBacksl(form_price);
-        form_pages = AquaMethods.addBacksl(form_pages);
+        form_descr = AquaMethods.addBacksl(form_descr);
+        //form_isbn = AquaMethods.addBacksl(form_isbn);
+        //form_price = AquaMethods.addBacksl(form_price);
+        //form_pages = AquaMethods.addBacksl(form_pages);
         form_publ = AquaMethods.addBacksl(form_publ);
-        form_yrpublished = AquaMethods.addBacksl(form_yrpublished);
+        //form_yrpublished = AquaMethods.addBacksl(form_yrpublished);
         
         // method addNewBook adds a new book to the table book ( returns a String based on which one the error_succ.jsp shows the message )
         String sMessage = AddDAO.addNewBook(hSession, form_title, form_auth, form_publ, form_isbn, form_price, form_pages, form_categ, form_descr, form_yrpublished);

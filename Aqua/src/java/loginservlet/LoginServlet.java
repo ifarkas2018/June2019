@@ -81,6 +81,10 @@ public class LoginServlet extends HttpServlet {
             // read the text from the passw ( the login_form.jsp ) 
             String password = request.getParameter("passw");
             
+            // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
+            userName = AquaMethods.addBacksl(userName);
+            password = AquaMethods.addBacksl(password);
+            
             // method login returns "admin" if the user is administrator, for the regular employee returns "emp", otherwise it returns "customer"
             String userType = UserDAO.login(userName, password);
             //HttpSession hSession = request.getSession(); // retrieve the session to which I am going to add variables

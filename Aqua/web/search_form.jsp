@@ -12,15 +12,39 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Search Book</title>
-        <!-- internal style sheet -->
-        <style>
-            .red_text {
-                color:red; /* red text color */
-            }
-        </style>
+        
+        <script src="myScript.js"></script>
+        <!-- <script src="JavaScript/ValidationJS.js"></script> -->
+        
         <script>
             NUM_FIELDS = 7; // number of the input fields on the form
             INPUT_FIELDS = 12;  
+        
+            // setFocus: sets the focus on the input field inputfield ( for instance "title" ) on the form with id form_id
+            /*
+            function setFocus1(form_id, inputfield){ // form_id, inputfield
+                alert("search form" + form_id);
+                
+                if ( document.forms["search_book"]["title"].value == "" ){ 
+                    alert("if branch");
+                    document.getElementById("title").focus();
+                } else {
+                    alert("else branch");
+                }
+                
+            }
+            
+            // setFocus: sets the focus on the input field inputfield ( for instance "prev_title" )
+            function setMyFocus(inputfield){
+                alert("myFocus");
+                
+                if ( document.forms["search_book"][inputfield].value == "" ){ 
+                    alert("myFocus - if");
+                    document.getElementById(inputfield).focus();
+                }
+                
+            }
+            */
             // setCookie: creates cookie inputI = value in the input field ; ( I - number 0..2 )
             function setCookie() {           
                 var i;
@@ -141,21 +165,23 @@
                                 %>
                                 
                                 <!-- after clicking on the button searchDB.jsp is shown -->
-                                <form action="searchDB.jsp" method="post">
-                                    <div class="form-group">
+                                <form action="searchDB.jsp" name="search_book" id="search_book" method="post" onsubmit="return checkForm();">
+                                    <div class="form-group"> 
                                         <label for="title">Title:</label> <!-- title label -->
                                         <!-- filling in the title is required  -->
-                                        <input type="text" class="form-control form-control-sm" name="title" id="title" maxlength="60" onchange="setCookie()" required value = "<%= input0 %>"> 
-                                        <label class="red_text">* Required Field</label>
+                                        <input type="text" class="form-control form-control-sm" name="title" id="title" maxlength="60" onchange="setCookie()" onfocusout='setFocus("search_book", "title")' required value = "<%= input0 %>"> 
+                                        <label class="text_color">* Required Field</label>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group"> 
                                         <label for="author">Author's Name:</label> <!-- author's name label -->
-                                        <input type="text" class="form-control form-control-sm" name="author" id="author" maxlength="70" onchange="setCookie()" value = "<%= input1 %>"> <!-- the input element for author -->
+                                        <input type="text" class="form-control form-control-sm" name="author" id="author" maxlength="70" onchange="setCookie()" onfocusout="valLetters(document.search_book.author, author_message, 'false');" value = "<%= input1 %>"> <!-- the input element for author -->
+                                        <span id="author_message" class="text_color"></span>
                                     </div>
                 
                                     <div class="form-group">
                                         <label for="isbn">ISBN:</label> <!-- ISBN label -->
-                                        <input type="text" class="form-control form-control-sm" name="isbn" id="isbn" maxlength="13" onchange="setCookie()" value = "<%= input2 %>"> <!-- the input element for ISBN -->
+                                        <input type="text" class="form-control form-control-sm" name="isbn" id="isbn" maxlength="13" onchange="setCookie();" onfocusout='isNumber("search_book", "isbn", "isbn_message", document.search_book.isbn)' value = "<%= input2 %>"> <!-- the input element for ISBN -->
+                                        <span id="isbn_message" class="text_color"></span>
                                     </div>
                 
                                     <div class="form-group">
@@ -268,7 +294,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="publ_year">Publication Year:</label> <!-- publication year label -->
-                                        <input type="text" class="form-control form-control-sm" id="publ_year" name="publ_year" maxlength="4" onchange="setCookie()" value = "<%= input6 %>"> <!-- the input element for the publication year -->
+                                        <input type="text" class="form-control form-control-sm" id="publ_year" name="publ_year" maxlength="4" onchange="setCookie()" onfocusout='isNumber( "search_book", "publ_year", "year_message", document.search_book.publ_year )' value = "<%= input6 %>"> <!-- the input element for the publication year -->
+                                        <span id="year_message" class="text_color"></span>
                                     </div>
 
                                     <div class="container">

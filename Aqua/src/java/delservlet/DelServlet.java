@@ -136,8 +136,8 @@ public class DelServlet extends HttpServlet {
             prev_isbn = AquaMethods.deleteSpaces(prev_isbn);
             
             // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
-            //prev_title = AquaMethods.addBacksl(prev_title);
-            //prev_author = AquaMethods.addBacksl(prev_author);
+            prev_title = AquaMethods.addBacksl(prev_title);
+            prev_author = AquaMethods.addBacksl(prev_author);
             
          
             // Class.forName("com.mysql.jdbc.Driver");

@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-       
+        
         <script>
             
         // isEmail : returns true if the email address is valid ( otherwise it returns false )

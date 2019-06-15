@@ -199,8 +199,8 @@ public class AddDAO {
                         }
 
                         // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
-                        author = AquaMethods.addBacksl(author);
-                        publisher = AquaMethods.addBacksl(publisher);
+                        //author = AquaMethods.addBacksl(author);
+                        //publisher = AquaMethods.addBacksl(publisher);
                         
                         query += " ) values ((select au_id from author where au_name='" + author + "'),"; // determine the au_id for the author
                         query += " (select publ_id from publisher where (publ_name='" + publisher + "') "; // determine the publ_id for the publisher
@@ -209,7 +209,7 @@ public class AddDAO {
                         query += " ),";
                         if (!(title.equalsIgnoreCase(""))){
                             // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
-                            title = AquaMethods.addBacksl(title);
+                            // title = AquaMethods.addBacksl(title);
                             query += "'" + title + "'"; // add the title to the query
                         }
                         if ((!(title.equalsIgnoreCase(""))) && (!(isbn.equalsIgnoreCase("")))){
@@ -230,7 +230,7 @@ public class AddDAO {
                         }
                         if (!(descr.equalsIgnoreCase(""))){
                             // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
-                            descr = AquaMethods.addBacksl(descr);
+                            //descr = AquaMethods.addBacksl(descr);
                             query += ",'" + descr + "'"; // add the pages to the query
                         }
                         if (!(yrpublished.equalsIgnoreCase(""))){

@@ -12,13 +12,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Page</title>
-        <!-- internal style sheet -->
-        <style>
-            .text_color {
-                color:red; /* red text color */
-            }
-        </style>
         
+        <script src="myScript.js"></script>
         <script>
             NUM_FIELDS = 9; // number of the input fields on the form  
             INPUT_FIELDS = 11;
@@ -150,12 +145,12 @@
                                     AquaMethods.setToEmptyInput( hSession2 ); // setToEmpty: set the session variable values to "" for the variables named input0, input1, ...
                                 %>
                                 <!-- after clicking on the button AddServlet is shown -->
-                                <form id="add_book" action="AddServlet" method="post">
+                                <form id="add_book" name="add_book" action="AddServlet" method="post" onsubmit="return checkForm();">
                                     <!-- creating the input element for the title -->
                                     <div class="form-group">
                                         <label for="title">Title:</label> <!-- title label -->
                                         <!-- filling in the title is required -->
-                                        <input type="text" class="form-control form-control-sm" name="title" id="title" maxlength="60" onchange="setCookie()" required value="<%= input0 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="title" id="title" maxlength="60" onchange="setCookie()" onfocusout='setFocus("add_book", "title")' required value="<%= input0 %>"> 
                                         <label class="text_color">* Required Field</label>
                                     </div>
                                         
@@ -163,14 +158,16 @@
                                     <div class="form-group">
                                         <label for="author">Author's Name:</label> <!-- author's name label -->
                                         <!-- filling in the author is required -->
-                                        <input type="text" class="form-control form-control-sm" name="author" id="author" maxlength="70" onchange="setCookie()" required value="<%= input1 %>"> 
-                                        <label class="text_color">* Required Field</label>
+                                        <input type="text" class="form-control form-control-sm" name="author" id="author" maxlength="70" onchange="setCookie()" onfocusout="valLetters(document.add_book.author, author_message, 'true');" required value="<%= input1 %>"> 
+                                        <!-- <label class="text_color">* Required Field</label> -->
+                                        <span id="author_message" class="text_color">* Required Field</span>
                                     </div>
                 
                                     <!-- creating the input element for the ISBN -->
                                     <div class="form-group">
                                         <label for="isbn">ISBN:</label> <!-- ISBN label -->
-                                        <input type="text" class="form-control form-control-sm" name="isbn" id="isbn" maxlength="13" onchange="setCookie()" value="<%= input2 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="isbn" id="isbn" maxlength="13" onchange="setCookie()" onfocusout='isNumber("add_book", "isbn", "isbn_message", document.add_book.isbn)' value="<%= input2 %>"> 
+                                        <span id="isbn_message" class="text_color"></span>
                                     </div>
                                         
                                     <!-- creating the input element for price -->
@@ -245,7 +242,7 @@
                                         
                                     <!-- creating the input element for the publisher -->
                                     <div class="form-group">
-                                        <label for="yrpublished">Year</label> <!-- publisher label -->
+                                        <label for="yrpublished">Publication Year</label> <!-- publisher label -->
                                         <!-- filling in the publisher is required -->
                                         <input type="text" class="form-control form-control-sm" name="yrpublished" id="yrpublished" maxlength="4" onchange="setCookie()" value="<%= input8 %>"> 
                                     </div>

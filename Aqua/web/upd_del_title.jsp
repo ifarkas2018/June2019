@@ -13,15 +13,67 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- internal style sheet -->
-        <style>
-            .text_color {
-                color:red; /* red text color */
-            }
-            
-        </style>
+        
+        
         <script>
             NUM_FIELDS = 3; // number of the input fields on the form  
+            NAME_VALIDATION  = 'true'; // does the Author's Name input field contain only letters ( and apostrophe )
+            NUM_VALIDATION  = 'true'; // does the ISBN input field contain only digits
+            //
+            // setFocus: sets the focus on the input field inputfield ( for instance "prev_title" )
+            function setFocus(inputfield){
+                if ( document.forms["upd_del_book"][inputfield].value == "" ){ 
+                    document.getElementById(inputfield).focus();
+                }
+            }
+            
+            // isNumber: shows a message if the user entered as ISBN a non numeric value
+            function isNumber() {
+                var number; // the ISBN number
+
+                // Get the value of the input field with id="prev_isbn"
+                number = document.getElementById("prev_isbn").value;
+
+                // if the value entered in a prev_isbn is not a nuumber 
+                if (isNaN(number)) {
+                    //text = "* Can contain only digits";
+                    document.getElementById("isbn_message").innerHTML = "* Can contain only digits"; // show the message
+                    NUM_VALIDATION  = 'false';
+                    document.upd_del_book.prev_isbn.focus();
+                } else {
+                    NUM_VALIDATION  = 'true';
+                    document.getElementById("isbn_message").innerHTML = ""; // show the message 
+                }
+            }
+            
+            // valLetters: checks whether in the control input_field there are only letters ( or apostrophe ). Otherwise in the message_span message is shown.
+            // returns TRUE if in the input_field there are only letters otherwise it returns FALSE
+            function valLetters(input_field, message_span){
+                var regex = /^[a-zA-Z\x27\x20]+$/;
+                if (!input_field.value == '') {
+                    if (!regex.test(input_field.value)) { // if the user entered some characters which are not letters ( in the input_field )
+                        message_span.innerHTML = "* Can contain only letters, apostrophes and space";
+                        NAME_VALIDATION = 'false';
+                        // set the focus in the input field where the user entered characters other than letters
+                        document.upd_del_book.prev_author.focus();
+                    } else { // the user entered characters which are letters ( in the input_field )
+                        NAME_VALIDATION = 'true';
+                        message_span.innerHTML = "";
+                    }
+                } else {
+                    NAME_VALIDATION = 'true';
+                    message_span.innerHTML = "";
+                }
+            }
+            
+            // checkForm: if the validation was successful then return TRUE otherwise it return FALSE
+            function checkForm(){
+                if ((NAME_VALIDATION == 'true') && (NUM_VALIDATION == 'true'))   
+                    return true;
+                else 
+                    return false;
+            }
+            
             // setCookie: creates cookie inputI = value in the input field ; ( I - number 0..2 )
             function setCookie() {           
                 var i;
@@ -119,16 +171,16 @@
                                 <% if (source.equals("Update Book")) {
                                 %>
                                     <!-- after clicking on the button update_page.jsp is shown -->
-                                    <form id="upd_del_book" action="update_page.jsp" method="post">
+                                    <form id="upd_del_book" name="upd_del_book" action="update_page.jsp" onsubmit="return checkForm();" method="post">
                                 <%
                                    } else if (source.equals("Delete Book")) {
                                 %>
                                        <!-- after clicking on the button DelServlet is shown -->
-                                       <form id="upd_del_book" action="DelServlet" method="post">
+                                       <form id="upd_del_book" name="upd_del_book" action="DelServlet" onsubmit="return checkForm();" method="post">
                                 <%
                                    }
                                 %>
-                                <div id="demo">Demo</div>
+                                
                                 <%  
                                     
                                     String input0 = ""; // read the value which was before in the input field prev_title and show it again
@@ -183,31 +235,35 @@
                                     <div class="form-group">
                                         <label for="prev_title">Title:</label> <!-- title label -->
                                         <!-- filling in the title: required -->
-                                        <input type="text" class="form-control form-control-sm" name="prev_title" id="prev_title" maxlength="60" onchange="setCookie()" required value = "<%= input0 %>" > 
-                                        <label class="text_color">* Required Field</label>
+                                        <input type="text" class="form-control form-control-sm" name="prev_title" id="prev_title" maxlength="60" onchange="setCookie()" onfocusout='setFocus("prev_title")' required value = "<%= input0 %>" > 
+                                        <span class="text_color">* Required Field</span>
                                     </div>
                                         
                                     <!-- creating the input element for the author -->
                                     <div class="form-group">
                                         <label for="prev_author">Author's Name:</label> <!-- author's name label -->
-                                        <input type="text" class="form-control form-control-sm" name="prev_author" id="prev_author" maxlength="70" onchange="setCookie()" value = "<%= input1 %>" >  
+                                        <input type="text" class="form-control form-control-sm" name="prev_author" id="prev_author" maxlength="70" onfocusout="setCookie();valLetters(document.upd_del_book.prev_author, author_message);" value = "<%= input1 %>" >  
+                                        <span id="author_message" class="text_color"></span>
                                     </div>
-                
+                                    
                                     <!-- creating the input element for the ISBN -->
-                                    <div class="form-group">
+                                    <div class="form-group"> 
                                         <label for="prev_isbn">ISBN:</label> <!-- ISBN label -->
                                         <!-- input field for the ISBN: maximum 13 characters -->
-                                        <input type="text" class="form-control form-control-sm" maxlength="13" name="prev_isbn" id="prev_isbn" onchange="setCookie()" value = "<%= input2 %>" > 
+                                        <input type="text" class="form-control form-control-sm" maxlength="13" name="prev_isbn" id="prev_isbn" onchange="setCookie()" onfocusout="isNumber()" value = "<%= input2 %>" > 
+                                        <span id="isbn_message" class="text_color"></span>
                                     </div>
+                                    <!--
                                     <div class="container">                                                                               
 
                                         <div class="row">
                                             <div class="col">
-                                                &nbsp; &nbsp; <!-- adding some empty space -->
+                                                &nbsp; &nbsp; <!-- adding some empty space ->
                                             </div>
                                         </div>    
-                                    </div>
-                                    
+                                    </div> -->
+                                    <br />
+                                    <!-- <br /> -->
                                     <%
                                     if (source.equals("Delete Book")) {
                                     %>

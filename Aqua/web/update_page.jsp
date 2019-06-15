@@ -60,8 +60,8 @@
                     prev_auth = AquaMethods.deleteSpaces(prev_auth);
                     prev_isbn = AquaMethods.deleteSpaces(prev_isbn);
                     // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
-                    //prev_title = AquaMethods.addBacksl(prev_title);
-                    //prev_auth = AquaMethods.addBacksl(prev_auth);
+                    prev_title = AquaMethods.addBacksl(prev_title);
+                    prev_auth = AquaMethods.addBacksl(prev_auth);
                     
                     // add to the session prev_title, prev_auth, prev_isbn
                     hSession.setAttribute("prev_title", prev_title); // the PREVIOUS title of the book

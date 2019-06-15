@@ -76,7 +76,7 @@ public class SignUpServlet extends HttpServlet {
         try{	    
             // read the text from the username, passw, first_name, last_name, admin ( the login_form.jsp ) 
             String userName = request.getParameter("username"); 
-            String password = request.getParameter("passw");
+            String password = request.getParameter("passw1");
             String first_name = request.getParameter("first_name");
             String last_name = request.getParameter("last_name");
             String admin = request.getParameter("admin");
@@ -89,6 +89,8 @@ public class SignUpServlet extends HttpServlet {
             // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
             first_name = AquaMethods.addBacksl(first_name);
             last_name = AquaMethods.addBacksl(last_name);
+            userName = AquaMethods.addBacksl(userName);
+            password = AquaMethods.addBacksl(password);
             
             String name = first_name + " " + last_name;
             HttpSession hSession = request.getSession(); // retrieve the session to which I am going to add variables
