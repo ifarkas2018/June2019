@@ -12,12 +12,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Page</title>
-        <!-- internal style sheet -->
-        <style>
-            .text_color {
-                color:red; /* red text color */
-            }
-        </style>
+        
+        <script src="JavaScript/ValidationJS.js"></script>
+       
         <script>
             
             NUM_FIELDS = 11; // maximum number of the input fields on this and the previous forms             
@@ -166,7 +163,7 @@
                                 <br />
                                 <br />
                                 <!-- after clicking on the button updateDB.jsp is shown -->
-                                <form id="update_book" action="updateDB.jsp" method="post">
+                                <form id="update_book" name="update_book" action="updateDB.jsp" onsubmit="return checkForm();" method="post">
                                     <!-- creating the input element for the title -->
                                     <div class="form-group">
                                         <label for="title">Title:</label> <!-- title label -->
@@ -176,26 +173,30 @@
                                     <!-- creating the input element for the author -->
                                     <div class="form-group">
                                         <label for="author">Author's Name:</label> <!-- author's name label -->
-                                        <input type="text" class="form-control form-control-sm" name="author" id="author" maxlength="70" onchange="setCookie()" value="<%= input4 %>"> <!-- author input field -->
+                                        <input type="text" class="form-control form-control-sm" name="author" id="author" maxlength="70" onchange="setCookie()" onfocusout="valLetters(document.update_book.author, author_message, 'false');" value="<%= input4 %>"> <!-- author input field -->
+                                        <span id="author_message" class="text_color"></span>
                                     </div>
                 
                                     <!-- creating the input element for the ISBN -->
                                     <div class="form-group">
                                         <label for="isbn">ISBN:</label> <!-- ISBN label -->
                                         <!-- isbn input field : up to 13 characters can be entered -->
-                                        <input type="text" class="form-control form-control-sm" maxlength="13" name="isbn" id="isbn" maxlength="13" onchange="setCookie()" value="<%= input5 %>"> 
+                                        <input type="text" class="form-control form-control-sm" maxlength="13" name="isbn" id="isbn" maxlength="13" onchange="setCookie()" onfocusout='isNumber("update_book", "isbn", "is_isbn", "isbn_message", document.update_book.isbn)' value="<%= input5 %>"> 
+                                        <span id="isbn_message" class="text_color"></span>
                                     </div>
                                         
                                     <!-- creating the input element for price -->
                                     <div class="form-group">
                                         <label for="price">Price:</label> <!-- Price label -->
-                                        <input type="text" class="form-control form-control-sm" name="price" id="price" maxlength="6" onchange="setCookie()" value="<%= input6 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="price" id="price" maxlength="6" onchange="setCookie()" onfocusout='isNumber("update_book", "price", "is_price", "price_message", document.update_book.price)' value="<%= input6 %>"> 
+                                        <span id="price_message" class="text_color"></span>
                                     </div>
                                         
                                     <!-- creating the input element for number of pages -->
                                     <div class="form-group">
                                         <label for="pages">Pages:</label> <!-- Pages label -->
-                                        <input type="text" class="form-control form-control-sm" name="pages" id="pages" maxlength="4" onchange="setCookie()" value="<%= input7 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="pages" id="pages" maxlength="4" onchange="setCookie()" onfocusout='isNumber("update_book", "pages", "is_pages", "pages_message", document.update_book.pages)' value="<%= input7 %>"> 
+                                        <span id="pages_message" class="text_color"></span>
                                     </div>
                                         
                                     <!-- creating the drop down list for the Category -->
@@ -266,7 +267,8 @@
                                     <!-- creating the input element for year the book was published -->
                                     <div class="form-group">
                                         <label for="yrpublished">Publication Year</label> <!-- the label the book got published -->
-                                        <input type="text" class="form-control form-control-sm" name="yrpublished" id="yrpublished" maxlength="4" onchange="setCookie()" value="<%= input11 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="yrpublished" id="yrpublished" maxlength="4" onchange="setCookie()" onfocusout='isNumber("update_book", "yrpublished", "is_yrpubl", "yrpubl_message", document.update_book.yrpublished)' value="<%= input11 %>"> 
+                                        <span id="yrpubl_message" class="text_color"></span>
                                     </div> 
                                         
                                     <div class="container">

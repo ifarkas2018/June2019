@@ -13,7 +13,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Page</title>
         
-        <script src="myScript.js"></script>
+        <script src="JavaScript/ValidationJS.js"></script>
+        
         <script>
             NUM_FIELDS = 9; // number of the input fields on the form  
             INPUT_FIELDS = 11;
@@ -166,20 +167,22 @@
                                     <!-- creating the input element for the ISBN -->
                                     <div class="form-group">
                                         <label for="isbn">ISBN:</label> <!-- ISBN label -->
-                                        <input type="text" class="form-control form-control-sm" name="isbn" id="isbn" maxlength="13" onchange="setCookie()" onfocusout='isNumber("add_book", "isbn", "isbn_message", document.add_book.isbn)' value="<%= input2 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="isbn" id="isbn" maxlength="13" onchange="setCookie()" onfocusout='isNumber("add_book", "isbn", "is_isbn", "isbn_message", document.add_book.isbn)' value="<%= input2 %>"> 
                                         <span id="isbn_message" class="text_color"></span>
                                     </div>
                                         
                                     <!-- creating the input element for price -->
                                     <div class="form-group">
                                         <label for="price">Price:</label> <!-- Price label -->
-                                        <input type="text" class="form-control form-control-sm" name="price" id="price" maxlength="6" onchange="setCookie()" value="<%= input3 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="price" id="price" maxlength="6" onchange="setCookie()" onfocusout='isNumber("add_book", "price", "is_price", "price_message", document.add_book.price)' value="<%= input3 %>"> 
+                                        <span id="price_message" class="text_color"></span>
                                     </div>
                                         
                                     <!-- creating the input element for number of pages -->
                                     <div class="form-group">
                                         <label for="pages">Pages:</label> <!-- Pages label -->
-                                        <input type="text" class="form-control form-control-sm" name="pages" id="pages" maxlength="4" onchange="setCookie()" value="<%= input4 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="pages" id="pages" maxlength="4" onchange="setCookie()" onfocusout='isNumber("add_book", "pages", "is_pages", "pages_message", document.add_book.pages)' value="<%= input4 %>"> 
+                                        <span id="pages_message" class="text_color"></span>
                                     </div>
                                         
                                     <!-- creating the drop down list for the Category -->
@@ -244,7 +247,8 @@
                                     <div class="form-group">
                                         <label for="yrpublished">Publication Year</label> <!-- publisher label -->
                                         <!-- filling in the publisher is required -->
-                                        <input type="text" class="form-control form-control-sm" name="yrpublished" id="yrpublished" maxlength="4" onchange="setCookie()" value="<%= input8 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="yrpublished" id="yrpublished" maxlength="4" onchange="setCookie()" onfocusout='isNumber("add_book", "yrpublished", "is_yrpubl", "yrpubl_message", document.add_book.yrpublished)' value="<%= input8 %>"> 
+                                        <span id="yrpubl_message" class="text_color"></span>
                                     </div>
                                         
                                     <div class="container">

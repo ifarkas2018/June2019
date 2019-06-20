@@ -13,8 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Search Book</title>
         
-        <script src="myScript.js"></script>
-        <!-- <script src="JavaScript/ValidationJS.js"></script> -->
+        <script src="JavaScript/ValidationJS.js"></script>
         
         <script>
             NUM_FIELDS = 7; // number of the input fields on the form
@@ -180,7 +179,7 @@
                 
                                     <div class="form-group">
                                         <label for="isbn">ISBN:</label> <!-- ISBN label -->
-                                        <input type="text" class="form-control form-control-sm" name="isbn" id="isbn" maxlength="13" onchange="setCookie();" onfocusout='isNumber("search_book", "isbn", "isbn_message", document.search_book.isbn)' value = "<%= input2 %>"> <!-- the input element for ISBN -->
+                                        <input type="text" class="form-control form-control-sm" name="isbn" id="isbn" maxlength="13" onchange="setCookie();" onfocusout='isNumber("search_book", "isbn", "is_isbn", "isbn_message", document.search_book.isbn)' value = "<%= input2 %>"> <!-- the input element for ISBN -->
                                         <span id="isbn_message" class="text_color"></span>
                                     </div>
                 
@@ -294,7 +293,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="publ_year">Publication Year:</label> <!-- publication year label -->
-                                        <input type="text" class="form-control form-control-sm" id="publ_year" name="publ_year" maxlength="4" onchange="setCookie()" onfocusout='isNumber( "search_book", "publ_year", "year_message", document.search_book.publ_year )' value = "<%= input6 %>"> <!-- the input element for the publication year -->
+                                        <input type="text" class="form-control form-control-sm" id="publ_year" name="publ_year" maxlength="4" onchange="setCookie()" onfocusout='isNumber( "search_book", "publ_year", "is_yrpubl", "year_message", document.search_book.publ_year )' value = "<%= input6 %>"> <!-- the input element for the publication year -->
                                         <span id="year_message" class="text_color"></span>
                                     </div>
 

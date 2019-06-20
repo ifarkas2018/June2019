@@ -13,16 +13,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <script src="myScript.js"></script>
         
         <script>
             NUM_FIELDS = 3; // number of the input fields on the form  
-            
-            // setFocus: sets the focus on the input field inputfield ( for instance "username" )
-            function setFocus(inputfield){
-                if (document.forms["login"][inputfield].value == ""){
-                    document.getElementById(inputfield).focus();
-                }
-            }
             
             // setCookie: creates cookie inputI = value in the input field ; ( I - number 0..2 )
             function setCookie() {           
@@ -111,7 +105,7 @@
                                         %>
                                         <label for="username">Username:</label> <!-- username label -->
                                         <!-- filling in the username: required -->
-                                        <input type="text" class="form-control form-control-sm" name="username" id="username" maxlength="20" onchange="setCookie()" onfocusout='setFocus("username")' required value = "<%= input0 %>" > 
+                                        <input type="text" class="form-control form-control-sm" name="username" id="username" maxlength="20" onchange="setCookie()" onfocusout='setFocus("login", "username")' required value = "<%= input0 %>" > 
                                         <label class="text_color">* Required Field</label>
                                     </div>
                                         
@@ -119,7 +113,7 @@
                                     <div class="form-group">
                                         <label for="passw">Password:</label> <!-- password name label -->
                                         <!-- filling in the passw: required -->
-                                        <input type="password" class="form-control form-control-sm" name="passw" id="passw" maxlength="17" onfocusout='setFocus("passw")' required> 
+                                        <input type="password" class="form-control form-control-sm" name="passw" id="passw" maxlength="17" required> 
                                         <label class="text_color">* Required Field</label>
                                     </div>
                                     

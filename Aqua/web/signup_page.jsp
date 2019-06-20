@@ -1,7 +1,7 @@
 <%-- 
     Document   : signup_page.jsp
     Created on : 06-Apr-2019, 00:42:10
-    Author     : user
+    Author     : Ingrid Farkas
 --%>
 
 <!-- login_page.jsp - when the user clicks on the Login link ( the navigation bar ) for the employee this web page is shown -->
