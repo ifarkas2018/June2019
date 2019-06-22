@@ -232,7 +232,7 @@
                                 <form name="signup" id="signup" action="SignUpServlet" onsubmit="return checkForm();" method="post">                                   
                                     <!-- creating the input element for the username -->
                                     <div class="form-group">
-                                        <label for="username">Username:</label> <!-- username label -->
+                                        <label for="username">Username</label> <!-- username label -->
                                         <!-- filling in the username: required -->
                                         <input type="text" class="form-control form-control-sm" name="username" id="username" maxlength="20" onchange="setCookie()" onfocusout='setFocus("signup", "username")'  required value="<%= input0 %>"> 
                                         <label class="text_color">* Required Field</label>
@@ -240,7 +240,7 @@
                                         
                                     <!-- creating the input element for the password -->
                                     <div class="form-group">
-                                        <label for="passw1">Password:</label> <!-- password name label -->
+                                        <label for="passw1">Password</label> <!-- password name label -->
                                         <!-- filling in the password: required -->
                                         <input type="password" class="form-control form-control-sm" name="passw1" id="passw1" maxlength="17" 
                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and at least 8 or more characters" 
@@ -251,7 +251,7 @@
                                     
                                     <!-- creating the input element for re-entering the password -->
                                     <div class="form-group">
-                                        <label for="passw2">Re-enter Password:</label> <!-- password name label -->
+                                        <label for="passw2">Re-enter Password</label> <!-- password name label -->
                                         
                                         <input type="password" class="form-control form-control-sm" name="passw2" id="passw2" maxlength="17" 
                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and at least 8 or more characters" 
@@ -262,21 +262,21 @@
                                     
                                     <!-- creating the input element for the first name -->
                                     <div class="form-group">
-                                        <label for="first_name">First Name:</label> <!-- first name label -->
+                                        <label for="first_name">First Name</label> <!-- first name label -->
                                         <input type="text" class="form-control form-control-sm" name="first_name" id="first_name" maxlength="15" onfocusout="setCookie();valLetters(document.signup.first_name, fname_message, 'false');" value="<%= input1 %>"> 
                                         <span id="fname_message" class="text_color"></span>
                                     </div>
 
                                     <!-- creating the input element for the last name -->
                                     <div class="form-group">
-                                        <label for="last_name">Last Name:</label> <!-- last name label -->
+                                        <label for="last_name">Last Name</label> <!-- last name label -->
                                         <input type="text" class="form-control form-control-sm" name="last_name" id="last_name"  maxlength="15" onfocusout="setCookie();valLetters(document.signup.last_name, lname_message, 'false');" value="<%= input2 %>"> 
                                         <span id="lname_message" class="text_color"></span>
                                     </div>
                                     
                                     <!-- creating the input element for the administrator -->
                                     <div class="form-group">
-                                        <label for="admin">Administrator:</label> <!-- administrator label -->
+                                        <label for="admin">Administrator</label> <!-- administrator label -->
                                         <div class="form-check">
                                             <!-- Yes radio button -->
                                             <% if (input3.equalsIgnoreCase("adm_yes")){ %>

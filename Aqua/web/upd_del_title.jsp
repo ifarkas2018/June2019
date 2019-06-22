@@ -179,7 +179,7 @@
                                 
                                     <!-- creating the input element for the title -->
                                     <div class="form-group">
-                                        <label for="prev_title">Title:</label> <!-- title label -->
+                                        <label for="prev_title">Title</label> <!-- title label -->
                                         <!-- filling in the title: required -->
                                         <input type="text" class="form-control form-control-sm" name="prev_title" id="prev_title" maxlength="60" onchange="setCookie()" onfocusout='setFocus("upd_del_book", "prev_title")' required value = "<%= input0 %>" > 
                                         <span class="text_color">* Required Field</span>
@@ -187,14 +187,14 @@
                                         
                                     <!-- creating the input element for the author -->
                                     <div class="form-group">
-                                        <label for="prev_author">Author's Name:</label> <!-- author's name label -->
+                                        <label for="prev_author">Author's Name</label> <!-- author's name label -->
                                         <input type="text" class="form-control form-control-sm" name="prev_author" id="prev_author" maxlength="70" onfocusout="setCookie();valLetters(document.upd_del_book.prev_author, author_message, 'false');" value = "<%= input1 %>" >  
                                         <span id="author_message" class="text_color"></span>
                                     </div>
                                     
                                     <!-- creating the input element for the ISBN -->
                                     <div class="form-group"> 
-                                        <label for="prev_isbn">ISBN:</label> <!-- ISBN label -->
+                                        <label for="prev_isbn">ISBN</label> <!-- ISBN label -->
                                         <!-- input field for the ISBN: maximum 13 characters -->
                                         <input type="text" class="form-control form-control-sm" maxlength="13" name="prev_isbn" id="prev_isbn" onchange="setCookie()" onfocusout='isNumber("upd_del_book", "prev_isbn", "is_isbn", "isbn_message", document.upd_del_book.prev_isbn)' value = "<%= input2 %>" > 
                                         <span id="isbn_message" class="text_color"></span>

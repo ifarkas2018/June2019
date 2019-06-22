@@ -149,7 +149,7 @@
                                 <form id="add_book" name="add_book" action="AddServlet" method="post" onsubmit="return checkForm();">
                                     <!-- creating the input element for the title -->
                                     <div class="form-group">
-                                        <label for="title">Title:</label> <!-- title label -->
+                                        <label for="title">Title</label> <!-- title label -->
                                         <!-- filling in the title is required -->
                                         <input type="text" class="form-control form-control-sm" name="title" id="title" maxlength="60" onchange="setCookie()" onfocusout='setFocus("add_book", "title")' required value="<%= input0 %>"> 
                                         <label class="text_color">* Required Field</label>
@@ -157,7 +157,7 @@
                                         
                                     <!-- creating the input element for the author -->
                                     <div class="form-group">
-                                        <label for="author">Author's Name:</label> <!-- author's name label -->
+                                        <label for="author">Author's Name</label> <!-- author's name label -->
                                         <!-- filling in the author is required -->
                                         <input type="text" class="form-control form-control-sm" name="author" id="author" maxlength="70" onchange="setCookie()" onfocusout="valLetters(document.add_book.author, author_message, 'true');" required value="<%= input1 %>"> 
                                         <!-- <label class="text_color">* Required Field</label> -->
@@ -166,21 +166,21 @@
                 
                                     <!-- creating the input element for the ISBN -->
                                     <div class="form-group">
-                                        <label for="isbn">ISBN:</label> <!-- ISBN label -->
+                                        <label for="isbn">ISBN</label> <!-- ISBN label -->
                                         <input type="text" class="form-control form-control-sm" name="isbn" id="isbn" maxlength="13" onchange="setCookie()" onfocusout='isNumber("add_book", "isbn", "is_isbn", "isbn_message", document.add_book.isbn)' value="<%= input2 %>"> 
                                         <span id="isbn_message" class="text_color"></span>
                                     </div>
                                         
                                     <!-- creating the input element for price -->
                                     <div class="form-group">
-                                        <label for="price">Price:</label> <!-- Price label -->
+                                        <label for="price">Price</label> <!-- Price label -->
                                         <input type="text" class="form-control form-control-sm" name="price" id="price" maxlength="6" onchange="setCookie()" onfocusout='isNumber("add_book", "price", "is_price", "price_message", document.add_book.price)' value="<%= input3 %>"> 
                                         <span id="price_message" class="text_color"></span>
                                     </div>
                                         
                                     <!-- creating the input element for number of pages -->
                                     <div class="form-group">
-                                        <label for="pages">Pages:</label> <!-- Pages label -->
+                                        <label for="pages">Pages</label> <!-- Pages label -->
                                         <input type="text" class="form-control form-control-sm" name="pages" id="pages" maxlength="4" onchange="setCookie()" onfocusout='isNumber("add_book", "pages", "is_pages", "pages_message", document.add_book.pages)' value="<%= input4 %>"> 
                                         <span id="pages_message" class="text_color"></span>
                                     </div>
@@ -231,7 +231,7 @@
                                         
                                     <!-- creating the textarea for the book description -->
                                     <div class="form-group">
-                                        <label for="descr">Description:</label> <!-- Description label --> 
+                                        <label for="descr">Description</label> <!-- Description label --> 
                                         <textarea class="form-control" name="descr" id="descr" rows="7" onchange="setCookie()"><%= input6 %></textarea>
                                     </div>
                                         
@@ -239,7 +239,7 @@
                                     <div class="form-group">
                                         <label for="publisher">Publisher</label> <!-- publisher label -->
                                         <!-- filling in the publisher is required -->
-                                        <input type="text" class="form-control form-control-sm" name="publisher" maxlength="40" id="publisher" onchange="setCookie()" required value="<%= input7 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="publisher" maxlength="40" id="publisher" onchange="setCookie()" onfocusout='setFocus("add_book", "publisher")' required value="<%= input7 %>"> 
                                         <label class="text_color">* Required Field</label>
                                     </div>
                                         

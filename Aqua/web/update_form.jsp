@@ -166,20 +166,20 @@
                                 <form id="update_book" name="update_book" action="updateDB.jsp" onsubmit="return checkForm();" method="post">
                                     <!-- creating the input element for the title -->
                                     <div class="form-group">
-                                        <label for="title">Title:</label> <!-- title label -->
+                                        <label for="title">Title</label> <!-- title label -->
                                         <input type="text" class="form-control form-control-sm" name="title" id="title" maxlength="60" onchange="setCookie()" value="<%= input3 %>"> <!-- title input field -->
                                     </div>
                                         
                                     <!-- creating the input element for the author -->
                                     <div class="form-group">
-                                        <label for="author">Author's Name:</label> <!-- author's name label -->
+                                        <label for="author">Author's Name</label> <!-- author's name label -->
                                         <input type="text" class="form-control form-control-sm" name="author" id="author" maxlength="70" onchange="setCookie()" onfocusout="valLetters(document.update_book.author, author_message, 'false');" value="<%= input4 %>"> <!-- author input field -->
                                         <span id="author_message" class="text_color"></span>
                                     </div>
                 
                                     <!-- creating the input element for the ISBN -->
                                     <div class="form-group">
-                                        <label for="isbn">ISBN:</label> <!-- ISBN label -->
+                                        <label for="isbn">ISBN</label> <!-- ISBN label -->
                                         <!-- isbn input field : up to 13 characters can be entered -->
                                         <input type="text" class="form-control form-control-sm" maxlength="13" name="isbn" id="isbn" maxlength="13" onchange="setCookie()" onfocusout='isNumber("update_book", "isbn", "is_isbn", "isbn_message", document.update_book.isbn)' value="<%= input5 %>"> 
                                         <span id="isbn_message" class="text_color"></span>
@@ -187,14 +187,14 @@
                                         
                                     <!-- creating the input element for price -->
                                     <div class="form-group">
-                                        <label for="price">Price:</label> <!-- Price label -->
+                                        <label for="price">Price</label> <!-- Price label -->
                                         <input type="text" class="form-control form-control-sm" name="price" id="price" maxlength="6" onchange="setCookie()" onfocusout='isNumber("update_book", "price", "is_price", "price_message", document.update_book.price)' value="<%= input6 %>"> 
                                         <span id="price_message" class="text_color"></span>
                                     </div>
                                         
                                     <!-- creating the input element for number of pages -->
                                     <div class="form-group">
-                                        <label for="pages">Pages:</label> <!-- Pages label -->
+                                        <label for="pages">Pages</label> <!-- Pages label -->
                                         <input type="text" class="form-control form-control-sm" name="pages" id="pages" maxlength="4" onchange="setCookie()" onfocusout='isNumber("update_book", "pages", "is_pages", "pages_message", document.update_book.pages)' value="<%= input7 %>"> 
                                         <span id="pages_message" class="text_color"></span>
                                     </div>
@@ -245,7 +245,7 @@
                                         
                                     <!-- creating the textarea for the book description -->
                                     <div class="form-group">
-                                        <label for="descr">Description:</label> <!-- Description label --> 
+                                        <label for="descr">Description</label> <!-- Description label --> 
                                         <textarea class="form-control" name="descr" id="descr" rows="4" onchange="setCookie()"><%= input9 %></textarea>
                                     </div>
                                         

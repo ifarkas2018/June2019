@@ -166,25 +166,25 @@
                                 <!-- after clicking on the button searchDB.jsp is shown -->
                                 <form action="searchDB.jsp" name="search_book" id="search_book" method="post" onsubmit="return checkForm();">
                                     <div class="form-group"> 
-                                        <label for="title">Title:</label> <!-- title label -->
+                                        <label for="title">Title</label> <!-- title label -->
                                         <!-- filling in the title is required  -->
                                         <input type="text" class="form-control form-control-sm" name="title" id="title" maxlength="60" onchange="setCookie()" onfocusout='setFocus("search_book", "title")' required value = "<%= input0 %>"> 
                                         <label class="text_color">* Required Field</label>
                                     </div>
                                     <div class="form-group"> 
-                                        <label for="author">Author's Name:</label> <!-- author's name label -->
+                                        <label for="author">Author's Name</label> <!-- author's name label -->
                                         <input type="text" class="form-control form-control-sm" name="author" id="author" maxlength="70" onchange="setCookie()" onfocusout="valLetters(document.search_book.author, author_message, 'false');" value = "<%= input1 %>"> <!-- the input element for author -->
                                         <span id="author_message" class="text_color"></span>
                                     </div>
                 
                                     <div class="form-group">
-                                        <label for="isbn">ISBN:</label> <!-- ISBN label -->
+                                        <label for="isbn">ISBN</label> <!-- ISBN label -->
                                         <input type="text" class="form-control form-control-sm" name="isbn" id="isbn" maxlength="13" onchange="setCookie();" onfocusout='isNumber("search_book", "isbn", "is_isbn", "isbn_message", document.search_book.isbn)' value = "<%= input2 %>"> <!-- the input element for ISBN -->
                                         <span id="isbn_message" class="text_color"></span>
                                     </div>
                 
                                     <div class="form-group">
-                                        <label for="price_range">Price Range:</label> <!-- price range label -->
+                                        <label for="price_range">Price Range</label> <!-- price range label -->
                                         <!-- creating a drop down list; form-control-sm is used for smaller control -->
                                         <select class="form-control form-control-sm" name="price_range" id="price_range" onchange="setCookie()"> 
                                             <% if (input3.equalsIgnoreCase("all")){ %>
@@ -233,7 +233,7 @@
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="sortby">Sort by:</label>
+                                        <label for="sortby">Sort By</label>
                                         <!-- creating a drop down list; form-control-sm is used for smaller control -->
                                         <select class="form-control form-control-sm" name="sortby" id="sortby" onchange="setCookie()"> 
                                             <% if (input4.equalsIgnoreCase("low")){ %>
@@ -292,7 +292,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="publ_year">Publication Year:</label> <!-- publication year label -->
+                                        <label for="publ_year">Publication Year</label> <!-- publication year label -->
                                         <input type="text" class="form-control form-control-sm" id="publ_year" name="publ_year" maxlength="4" onchange="setCookie()" onfocusout='isNumber( "search_book", "publ_year", "is_yrpubl", "year_message", document.search_book.publ_year )' value = "<%= input6 %>"> <!-- the input element for the publication year -->
                                         <span id="year_message" class="text_color"></span>
                                     </div>
