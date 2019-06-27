@@ -6,17 +6,12 @@
 package loginservlet;
 
 import java.io.IOException;
-//import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author user
- */
 public class SignUp extends HttpServlet {
 
     /**
@@ -33,21 +28,6 @@ public class SignUp extends HttpServlet {
         HttpSession hSession = request.getSession(); // retrieve the session to which I am going to add variables
         hSession.setAttribute("sign_up", "true"); // the user is doing sign_up
         response.sendRedirect("signup_page.jsp"); // show the sign Up page for that user  
-        /*
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            / TODO output your page here. You may use following sample code. /
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SignUp</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SignUp at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-        */
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

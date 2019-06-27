@@ -14,10 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import miscellaneous.AquaMethods;
 
-/**
- *
- * @author user
- */
 public class SignUpServlet extends HttpServlet {
 
     /**
@@ -33,7 +29,6 @@ public class SignUpServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -72,7 +67,7 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // processRequest(request, response);
+        
         try{	    
             // read the text from the username, passw, first_name, last_name, admin ( the login_form.jsp ) 
             String userName = request.getParameter("username"); 
@@ -130,7 +125,7 @@ public class SignUpServlet extends HttpServlet {
                     response.sendRedirect("error_succ.jsp"); // show the page with the message the new user signed up successfully 
                 }
             }
-        } catch (Throwable theException){
+        } catch (Throwable theException) {
             System.out.println(theException); 
         }
     }

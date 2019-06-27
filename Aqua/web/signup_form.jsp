@@ -2,7 +2,6 @@
     Document   : signup_form ( included in signup_page.jsp )
     Created on : 06-Apr-2019, 00:14:14
     Author     : Ingrid Farkas
-    included in signup_page.jsp
 --%>
 
 <!-- signup_form.jsp - shows the form for entering the username, password, first name, last name, whether the user is an administrator  -->
@@ -20,83 +19,25 @@
         <script>
             NUM_FIELDS = 5; // number of the input fields on the form 
             INPUT_FIELDS = 12; // number of the max umber of input fields (on all forms) 
-            //FIRST_VALIDATION  = 'true'; // does the First Name input field contain only letters ( and apostrophe )
-            //LAST_VALIDATION  = 'true'; // does the Last Name input field contain only letters ( and apostrophe )
             EQUAL_PASSW = 'true'; // are the entered passwords the same
-            
-            /*
-            // setValidation: sets the FIRST_VALIDATION, LAST_VALIDATION. labelname is First Name or Last Name 
-            function setValidation(labelname, value){
-                if (labelname == 'First Name'){
-                    FIRST_VALIDATION = value;
-                } else {
-                    LAST_VALIDATION = value;
-                }
-            }
-            
-            // setFocus: sets the focus on the input field inputfield ( for instance "username" )
-            function setFocus(inputfield){
-                //alert("inputfield" + inputfield);
-                //fname_message.innerHTML = "input_field.value " + document.signup.username.value;
-                if (document.forms["signup"][inputfield].value == ""){
-                  //document.signup.username.focus();
-                    document.getElementById(inputfield).focus();
-                }
-            }
-            
-            // valLetters: checks whether in the control input_field there are only letters ( or apostrophe ). Otherwise in the message_span message is shown.
-            // returns TRUE if in the input_field there are only letters otherwise it returns FALSE
-            function valLetters(input_field, message_span, label_name ){
-                var regex = /^[a-zA-Z\x27]+$/;
-                if (!input_field.value == '') {
-                    if (!regex.test(input_field.value)) { // if the user entered some characters which are not letters ( in the input_field )
-                        message_span.innerHTML = "* " + label_name + " can contain only letters and apostrophes";
-                        setValidation(label_name, 'false');
-                        // set the focus in the input field where the user entered characters other than letters
-                        if (label_name == 'First Name')
-                            document.signup.first_name.focus();
-                        else
-                            document.signup.last_name.focus();
-                        //document.getElementById("first_name").focus();
-                    } else { // the user entered characters which are letters ( in the input_field )
-                        setValidation(label_name, 'true');
-                        message_span.innerHTML = "";
-                    }
-                } else {
-                    setValidation(label_name, 'true');
-                    message_span.innerHTML = "";
-                }
-            }
-            */
            
             // matchPass: compares the two entered passwords and sets the variable EQUAL_PASSW ( whether the entered passwords are equal )
             function matchPass(){  
                 var passwd1 = document.signup.passw1.value;  
                 var passwd2 = document.signup.passw2.value;  
 
-                if ( passwd1 == passwd2 ){  
+                if (passwd1 == passwd2) {  
                     EQUAL_PASSW= 'true';
                     // remove the message below the password input field
                     passw1_message.innerHTML = "* Required Field";
                     passw2_message.innerHTML = "* Required Field";
-                }  
-                else {  
+                }  else {  
                     EQUAL_PASSW = 'false'; 
                     // show the message below the password input field
                     passw1_message.innerHTML = "* Passwords must match";
                     passw2_message.innerHTML = "* Passwords must match";
                 }  
             }  
-            
-            /*
-            // checkForm: if the user entered only letters ( or apostrophe ) for the first name and the second name then return TRUE otherwise it return FALSE
-            function checkForm(){
-                if ((FIRST_VALIDATION === 'true') && (LAST_VALIDATION === 'true') && (EQUAL_PASSW === 'true'))  
-                    return true;
-                else 
-                    return false;
-            }
-            */
            
             // setCookie: creates cookie inputI = value in the input field ; ( I - number 0..5 )
             function setCookie() {           
@@ -123,7 +64,7 @@
                 var name = cname + "=";
                 var decodedCookie = decodeURIComponent(document.cookie);
                 var cookieArr = decodedCookie.split(';'); // splitting the cookie into "cookie_name = cookie_value;"
-                for(var i = 0; i < cookieArr.length; i++) {
+                for( var i = 0; i < cookieArr.length; i++ ) {
                   var c = cookieArr[i];
                   while (c.charAt(0) == ' ') {
                     c = c.substring(1);
@@ -133,7 +74,7 @@
                   }
                 }
                 return "";
-              }
+            }
             
             // setDefaults : sets the values of the cookies ( input0, input1, input12 ) to the default and
             // writes the content of every input field to the cookie
@@ -153,7 +94,7 @@
         </script>
     </head>
     
-    <title>Sign Up</title>
+    <title>Aqua Books - Sign Up</title>
     <body onload="setDefaults()">
         <%
             final String PAGE_NAME = "signup_page.jsp"; // page which is loaded now 
@@ -226,7 +167,7 @@
                                         hSession2.setAttribute("fill_in", "false"); // the input fields don't need to be filled in
                                     }                                    
                                     hSession2.setAttribute("page_name", PAGE_NAME);
-                                    AquaMethods.setToEmptyInput( hSession2 ); // setToEmpty: set the session variable values to "" for the variables named input0, input1, ...
+                                    AquaMethods.setToEmptyInput(hSession2); // setToEmpty: set the session variable values to "" for the variables named input0, input1, ...
                                 %>
 
                                 <form name="signup" id="signup" action="SignUpServlet" onsubmit="return checkForm();" method="post">                                   
@@ -245,7 +186,6 @@
                                         <input type="password" class="form-control form-control-sm" name="passw1" id="passw1" maxlength="17" 
                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and at least 8 or more characters" 
                                                required> 
-                                        <!-- <label class="text_color">* Required Field</label> -->
                                         <span id="passw1_message" class="text_color">* Required Field</span>
                                     </div>
                                     
@@ -256,7 +196,6 @@
                                         <input type="password" class="form-control form-control-sm" name="passw2" id="passw2" maxlength="17" 
                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and at least 8 or more characters" 
                                                onfocusout='matchPass()' required> 
-                                       <!-- <label class="text_color">* Required Field</label> -->
                                         <span id="passw2_message" class="text_color">* Required Field</span>
                                     </div>
                                     

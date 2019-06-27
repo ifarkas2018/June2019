@@ -16,20 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Connection;
 import connection.ConnectionManager;
-import delservlet.DetermineID; // contains methods for retrieving the ID
 
 import javax.servlet.http.HttpSession;
 import miscellaneous.AquaMethods;
 
-/**
- *
- * @author Ingridi Farkas
- * called from upd_del_title.jsp
- */
 @WebServlet(urlPatterns = {"/DelServlet"}) // if the URL is /DelServlet
 public class DelServlet extends HttpServlet {
 
@@ -46,7 +38,6 @@ public class DelServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -85,50 +76,13 @@ public class DelServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
-        // HttpSession hSession = request.getSession(); // hSession - used to store the information about that user
         HttpSession hSession = AquaMethods.returnSession(request); // hSession - used to store the information about that user
         try (PrintWriter out = response.getWriter()) {
             String prev_title = request.getParameter("prev_title"); // retrieving the title of the book
             String prev_author = request.getParameter("prev_author"); // the author
             String prev_isbn = request.getParameter("prev_isbn"); // ISBN
-            /*
-            boolean subscr = false; // whether the user is coming from the subscribe
-            // sess. var. is set to true in the subscrres_content.jsp ( if the user subscribed )
-            if (AquaMethods.sessVarExists(hSession, "subscribe")) {
-                // did the user just Subscribe 
-                subscr = Boolean.valueOf(String.valueOf(hSession.getAttribute("subscribe")));
-                hSession.setAttribute("subscribe", "false"); // reseting the sess. var to the default
-            } 
-            hSession.setAttribute("webpg_name", "DelServlet.java");
-                                
-            //  try { 
-            String prev_title = "";
-            String prev_author = "";
-            String prev_isbn = "";
-                                
-            if (subscr){ // the user just subscribed - I need to read the values from the forms
-                prev_title = AquaMethods.readSetSessV( hSession, "input0" ); // read and reset the sess. var. ( title )
-                prev_author = AquaMethods.readSetSessV( hSession, "input1" ); // read and reset the sess. var. ( author )
-                prev_isbn = AquaMethods.readSetSessV( hSession, "input2" ); // read and reset the sess. var. ( isbn )
-
-                // sets all the sess. var. ( with names that start with input ) to ""
-                AquaMethods.setToEmptyInput(hSession);
-            } else { // the user is loading this page WITHOUT subscribing
-                prev_title = request.getParameter("prev_title"); // the text entered as the username
-                prev_author = request.getParameter("prev_author");
-                prev_isbn = request.getParameter("prev_isbn");
-                                    
-                // sets all the sess. var. ( with names that start with input ) to ""
-                AquaMethods.setToEmptyInput(hSession);
-                                        
-                // write the value of the username ( to the sess. var ): if the user subscribes then this value needs to be read again
-                hSession.setAttribute("input0", prev_title); 
-                hSession.setAttribute("input1", prev_author);
-                hSession.setAttribute("input2", prev_isbn);                           
-            }
-            */
+        
             // deleteSpaces: removes space characters from the begining and end of the string, and replaces 2 or more white spaces with single space
             // inside of the string
             prev_title = AquaMethods.deleteSpaces(prev_title);
@@ -139,13 +93,8 @@ public class DelServlet extends HttpServlet {
             prev_title = AquaMethods.addBacksl(prev_title);
             prev_author = AquaMethods.addBacksl(prev_author);
             
-         
-            // Class.forName("com.mysql.jdbc.Driver");
-            //@@@@@@@@@@ Connection  con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "root");
-            // Connection  con = DriverManager.getConnection("jdbc:mysql://localhost:3305/bookstore?useSSL=false", "root", "bird&2018");  
             Connection con = ConnectionManager.getConnection(); //connecting to database 
             Statement stmt = con.createStatement();
-            
             
             String query="";
             String auid=""; // author ID ( column au_id, table author )
@@ -185,7 +134,7 @@ public class DelServlet extends HttpServlet {
             
             // if the user entered the ISBN
             if (!(prev_isbn.equalsIgnoreCase(""))) {
-                if (added_col == true ) // if the column was added to the query
+                if (added_col == true) // if the column was added to the query
                     query += "AND "; // add to the query AND
                 
                 query += "isbn = '" + prev_isbn + "' "; // add to the query isbn = '...'
@@ -196,21 +145,12 @@ public class DelServlet extends HttpServlet {
             
             PreparedStatement preparedStmt = con.prepareStatement(query);
             int rowcount = preparedStmt.executeUpdate(); // executing the query
-            
-            /*
-            ResultSet rs = preparedStmt.getGeneratedKeys();
-            if (rs.next()){
-                boolean deleted = true;
-            } else {
-                boolean deleted = false;
-            }
-            */    
-            
+                        
             hSession.setAttribute("source_name", "Delete Book"); // on which page I am now
             String sTitle = "Delete Book!"; // used for passing the title from one JSP script to the other
             
             String sMessage; // used for passing the message from one JSP script to the other
-            if (rowcount > 0){ // the row was deleted
+            if (rowcount > 0) { // the row was deleted
                 sMessage = "SUCC_DELETE"; 
             } else {
                 sMessage = "DEL_NO_BOOK"; 

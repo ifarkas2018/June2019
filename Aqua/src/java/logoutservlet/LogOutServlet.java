@@ -14,10 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author user
- */
 @WebServlet(urlPatterns = {"/LogOutServlet"}) // if the URL is /LogOutServlet
 public class LogOutServlet extends HttpServlet {
 
@@ -34,7 +30,6 @@ public class LogOutServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -59,7 +54,6 @@ public class LogOutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         HttpSession hSession = request.getSession(); // retrieve the session to which I am going to add variables
         hSession.setAttribute("logged_in", "false" ); // set the session variable logged_in ( whether the user is logged in 
         hSession.setAttribute("emp_adm", "false"); // the user is not anymore using the website for employees and administrators

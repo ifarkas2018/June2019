@@ -39,10 +39,9 @@
                         <div class="row"> <!-- adding a new row to the Bootstrap grid -->
                             <div class="col">
                                 &nbsp; &nbsp;
-                                <br/>
+                                <br />
                                 <h3>Home Page</h3>
-                                <br/> 
-                                <!-- the FORM was here -->
+                                <br /> 
                             </div> <!-- end of class="col" -->
                         </div> <!-- end of class="row" --> 
                     </div> <!-- end of class="container" -->

@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>About Us</title>
+        <title>Aqua Books - About Us</title>
         <!-- link to the external style sheet -->
         <link href="css/templatecss.css" rel="stylesheet" type="text/css">
     </head>
@@ -25,4 +25,3 @@
         <%@ include file="footer.jsp"%> 
     </body>
 </html>
-

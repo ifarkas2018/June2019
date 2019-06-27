@@ -1,8 +1,9 @@
 <%-- 
     Document   : footer
     Created on : 02-Sep-2018, 01:51:27
-    Author     : user
+    Author     : Ingrid Farkas
 --%>
+
 <!-- footer.jsp builds the footer of the web page --> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,29 +13,29 @@
         
         <script>
             
-        // isEmail : returns true if the email address is valid ( otherwise it returns false )
-        function isEmail(email) {
-            // regex pattern is used for validating email 
-            var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            if(!regex.test(email)) {
-                return false;
-            } else {
-                return true;
+            // isEmail : returns true if the email address is valid ( otherwise it returns false )
+            function isEmail(email) {
+                // regex pattern is used for validating email 
+                var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if(!regex.test(email)) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
-        }
-        
-        // createCookie: creates a cookie named valid_email with value that was entered as an email 
-        function createCookie(){
-            var email = document.getElementById("subscr_email").value;
-            var cookie_str = "valid_email=";
-            // if the email is valid the value is true
-            if (isEmail(email)){
-               cookie_str += "true;";
-           } else {
-               cookie_str += "false;"; 
+
+            // createCookie: creates a cookie named valid_email with value that was entered as an email 
+            function createCookie() {
+                var email = document.getElementById("subscr_email").value;
+                var cookie_str = "valid_email=";
+                // if the email is valid the value is true
+                if (isEmail(email)) {
+                   cookie_str += "true;";
+                } else {
+                    cookie_str += "false;"; 
+                }
+                document.cookie = cookie_str; // creating a cookie named valid_email
             }
-            document.cookie = cookie_str; // creating a cookie named valid_email
-        }
         </script>
     </head>
     <body> 
@@ -95,7 +96,7 @@
                                             <div class="row"> <!-- adding a new row the grid -->
                                                 <div class="col">
                                                     <!-- adding the button Subscribe, btn-info is used for defining the color of the button,
-                                                         form-control-sm is used for smaller size of the button -->
+                                                        form-control-sm is used for smaller size of the button -->
                                                         <button type="submit" class="btn btn-info btn-sm" id="btnSubscr" onclick="createCookie()">Subscribe</button>
                                                 </div>
                                             </div>
@@ -135,10 +136,5 @@
                 </div> <!-- end of the class="container" -->
             </div> <!-- end of class="footer" -->
         </footer> 
-        <!-- ??????????????????????????????????????????????????????????? -->
-        <!-- </div> --> <!-- is this NEEDED end of class="container" -->
-       
-        
-        
     </body>
 </html>

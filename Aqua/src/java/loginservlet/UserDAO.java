@@ -5,15 +5,9 @@
  */
 package loginservlet;
 
- import java.text.*;
- import java.util.*;
- import java.sql.*;
- import connection.ConnectionManager;
+import java.sql.*;
+import connection.ConnectionManager;
 
-/**
- *
- * @author user
- */
 public class UserDAO {
     static Connection currentCon = null;
     static ResultSet rs = null;  // result of the query 
@@ -24,7 +18,7 @@ public class UserDAO {
         String is_employee = "false"; // is the user an employee
         String is_admin = "false"; // is a user an administrator
         
-        //preparing some objects for connection 
+        // preparing some objects for connection 
         Statement stmt = null;       
 	    
         // the query
@@ -44,8 +38,7 @@ public class UserDAO {
                 if (is_admin.equalsIgnoreCase("yes")) { // if the user is an administrator then he is not a regular employee
                     is_employee = "false";
                     is_admin = "true";
-                }
-                else { // if the user is not an administrator then he is a regular employee
+                } else { // if the user is not an administrator then he is a regular employee
                     is_employee = "true";
                     is_admin = "false";
                 }
@@ -56,10 +49,11 @@ public class UserDAO {
 	    
         // some exception handling
         finally {
-            if (rs != null){
+            if (rs != null) {
                 try {
                     rs.close(); // closing the RecordSet object
                 } catch (Exception e) {
+                
                 }
                 rs = null;
             }
@@ -68,6 +62,7 @@ public class UserDAO {
                 try {
                     stmt.close(); // closing the Statement object
                 } catch (Exception e) {
+                
                 }
                 stmt = null;
             }
@@ -76,15 +71,15 @@ public class UserDAO {
                 try {
                     currentCon.close(); // closing the Connection object
                 } catch (Exception e) {
+                
                 }
-
                 currentCon = null;
             }
         }
 
-        if (is_employee.equals("true")){ // if the user logged in a employee, then return "emp"
+        if (is_employee.equals("true")) { // if the user logged in a employee, then return "emp"
             return "emp";
-        } else if (is_admin.equals("true")){ // if the user is logged in as admin then return "admin"
+        } else if (is_admin.equals("true")) { // if the user is logged in as admin then return "admin"
             return "admin";
         } else { // if the user is neither logged in as administrator nor as regular employee return "customer"
             return "customer";
@@ -92,7 +87,7 @@ public class UserDAO {
     }	
     
     // method userExists returns TRUE if the user with the entered username and password already exists in the DB, otherwise returns FALSE
-    public static boolean userExists(String userName, String password){
+    public static boolean userExists(String userName, String password) {
         boolean returnVal = false; // does the user exist
         
         // preparing some objects for connection 
@@ -121,6 +116,7 @@ public class UserDAO {
                 try {
                     rs.close(); // closing the RecordSet object
                 } catch (Exception e) {
+                
                 }
                 rs = null;
             } 
@@ -129,6 +125,7 @@ public class UserDAO {
                 try {
                     stmt.close(); // closing the Statement object
                 } catch (Exception e) {
+                
                 }
                 stmt = null;
             }
@@ -137,6 +134,7 @@ public class UserDAO {
                 try {
                     currentCon.close(); // closing the Connection object
                 } catch (Exception e) {
+                
                 }
 
                 currentCon = null;
@@ -146,7 +144,7 @@ public class UserDAO {
     }
             
     // method signUp returns TRUE if the new user was successfully added to the table login, otherwise it returns FALSE
-    public static boolean signUp(String userName, String password, String name, String admin){
+    public static boolean signUp(String userName, String password, String name, String admin) {
         boolean returnVal = false; // was the inserting of the new user successful
         
         // preparing some objects for connection 
@@ -186,6 +184,7 @@ public class UserDAO {
                 try {
                     pStmt.close(); // closing the PreparedStatement object
                 } catch (Exception e) {
+                
                 }
                 pStmt = null;
             }
@@ -194,8 +193,8 @@ public class UserDAO {
                 try {
                     currentCon.close(); // closing the Connection object
                 } catch (Exception e) {
+                
                 }
-
                 currentCon = null;
             }
         }

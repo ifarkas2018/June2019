@@ -1,7 +1,7 @@
 <%-- 
     Document   : subscrres_content
     Created on : 16-Apr-2019, 16:28:06
-    Author     : user
+    Author     : Ingrid Farkas
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Subscription</title>
+        <title>Aqua Books - Subscription</title>
         
         <style>
             .red_text {
@@ -22,7 +22,6 @@
         <script>
             function setFillIn(){
                 document.cookie = "fill_in=true;"; // should the user return to the form he was on before subscribing the fill_in should be true
-                //alert("subscrres_content: " + document.cookie);
             }
         </script>
     </head>
@@ -53,15 +52,6 @@
                                     String validEmail = String.valueOf(hSession.getAttribute("valid_email"));
                                     String exOccurred = "false"; // whether an exception occured 
                                     String page_name = "";
-                                    /*
-                                    if (AquaMethods.sessVarExists(hSession, "pg_name")){
-                                        // if the pg_name exist and it is not "" that is the name of the page to be shown
-                                        // @@@@@@@@@@@@@@@' NOT NEEDED // errorsuccpg_name: set in the error_succ.jsp
-                                        page_name = String.valueOf(hSession.getAttribute("pg_name"));
-                                        hSession.setAttribute("pg_name", ""); // the web page will loaded - set the subscrpg_name to ""
-                                    }
-                                    */
-                                    // before page_name @@@@@@@@@@@@@@@@@
                                     if (page_name.equalsIgnoreCase("")) // if page_name wasn't set above read it from webpg_name
                                         page_name = String.valueOf(hSession.getAttribute("webpg_name")); // name of the page where the user was before clicking on the Subscribe button
                                     exOccurred = String.valueOf(hSession.getAttribute("db_exoccurred"));
@@ -80,13 +70,13 @@
                                         page_name = "index.jsp";
                                 %>
                                 <br /><br />
+                                
                                 <!-- after clicking on the button the web page is loaded where the user was before clicking on the Subscribe button -->
                                 <form action=<%= page_name %> method="post" > 
                                     <!-- adding the button Subscribe, btn-info is used for defining the color of the button,
                                          form-control-sm is used for smaller size of the button -->
                                     <button type="submit" class="btn btn-info btn-sm" id="btnClose">Close</button>
                                 </form>    
-                                <!-- the FORM was here -->
                             </div> <!-- end of class="col" -->
                             
                         </div> <!-- end of class="row" --> 

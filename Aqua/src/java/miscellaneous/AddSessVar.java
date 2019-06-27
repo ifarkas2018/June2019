@@ -1,7 +1,7 @@
 /*
  * author: Ingrid Farkas
  * project: Aqua Bookstore
- * AddSessVar.java : when the user clicks on the Books, Update Book ( header.jsp ) this servlet is called
+ * AddSessVar.java : this servlet is called to read the values in cookies ( JavaScript ) and to add them as session var.
  */
 package miscellaneous;
 
@@ -15,10 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author user
- */
 @WebServlet(name = "AddSessVar", urlPatterns = {"/AddSessVar"})
 public class AddSessVar extends HttpServlet {
 
@@ -35,7 +31,6 @@ public class AddSessVar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -60,39 +55,30 @@ public class AddSessVar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession hSession2 = AquaMethods.returnSession(request);
             // setToEmptyInput: set the session variable values to "" for the variables named input0, input1, ...
             AquaMethods.setToEmptyInput( hSession2 ); 
             
-            
-            //if (!(pageName.equalsIgnoreCase("index.jsp"))) {
-            
-                Cookie[] cookies = request.getCookies(); // retrieving the array of cookies
-                // going throught the cookies
-                for (Cookie cookie:cookies){
-                    // get the name of the cookie
-                    String cookie_name = cookie.getName();
+            Cookie[] cookies = request.getCookies(); // retrieving the array of cookies
+            // going throught the cookies
+            for (Cookie cookie:cookies){
+                // get the name of the cookie
+                String cookie_name = cookie.getName();
 
-                    // is the name of the cookie fill_in
-                    boolean is_fill_in = cookie_name.startsWith("fill_in", 0); 
-                    //boolean is_update = cookie_name.startsWith("webpg_name", 0);
-                    //boolean is_login = cookie_name.startsWith("webpg_name", 0);
-                    boolean is_webpg_name = cookie_name.equalsIgnoreCase("webpg_name");
+                // is the name of the cookie fill_in
+                boolean is_fill_in = cookie_name.startsWith("fill_in", 0); 
+                boolean is_webpg_name = cookie_name.equalsIgnoreCase("webpg_name");
 
-                    String cookie_val = cookie.getValue();
-                    // if the cookie contains the name of the web page to be shown set the session variable cookie_name ( = webpg_name )
-                    // to the cookie_val
-                    if ((is_webpg_name) || (is_fill_in))
-                        hSession2.setAttribute(cookie_name, cookie_val);
-                    //if (is_update)
-                        //hSession2.setAttribute(cookie_name, cookie_val);
-                }
-            //}
+                String cookie_val = cookie.getValue();
+                // if the cookie contains the name of the web page to be shown set the session variable cookie_name ( = webpg_name )
+                // to the cookie_val
+                if ((is_webpg_name) || (is_fill_in))
+                    hSession2.setAttribute(cookie_name, cookie_val);
+            }
             String pageName = "";
-            if (AquaMethods.sessVarExists( hSession2, "webpg_name") ) {
+            if (AquaMethods.sessVarExists( hSession2, "webpg_name")) {
                 pageName = String.valueOf( hSession2.getAttribute("webpg_name") );
             }
             

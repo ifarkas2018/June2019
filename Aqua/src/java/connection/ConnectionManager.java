@@ -1,20 +1,18 @@
 /*
+ * author: Ingrid Farkas
+ * project: Aqua Bookstore
  * creates a connection to the database
- * 
  */
 package connection;
 
 import java.sql.*;
 import java.util.*;
-/**
- *
- * @author user
- */
+
 public class ConnectionManager {
     static Connection con;
     static String url;
             
-    public static Connection getConnection(){
+    public static Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3305/bookstore?useSSL=false";
@@ -28,11 +26,10 @@ public class ConnectionManager {
             }
         }
 
-        catch(ClassNotFoundException e)
+        catch (ClassNotFoundException e)
         {
             System.out.println(e);
         }
-
         return con;
     }
 }

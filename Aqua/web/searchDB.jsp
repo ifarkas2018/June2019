@@ -3,8 +3,6 @@
     Created on : 18-Sep-2018, 00:54:05
     Author     : Ingrid Farkas
     called from search_form.jsp
-
-    @@@@@@@@@@@@@@@ I used mysql-connector-java-5.1.47-bin.jar
 --%>
 
 <%@page import="java.sql.ResultSet"%>
@@ -22,7 +20,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/templatecss.css" type="text/css" rel="stylesheet"/>
-        <title>Search Book</title>
+        <title>Aqua Books - Search Book</title>
         <%@ include file="header.jsp"%>
     </head>
     <body>
@@ -44,8 +42,7 @@
                                 <h3>Search</h3><br/>
                                 <%!
                                     // cont_wildcard returns true if the string contains one of wildcards % or _. Otherwise it returns false.
-                                    boolean cont_wildcard(String str)
-                                    {
+                                    boolean cont_wildcard(String str) {
                                         CharSequence undersc = "_";
                                         CharSequence percentage = "%";
                                         // does the string contain _ or %
@@ -56,217 +53,208 @@
                                     }
                                 %>
                                 <%
-                                boolean subscr = false; // whether the user is coming from the subscribe
-                                HttpSession hSession = AquaMethods.returnSession(request);
-                                // sess. var. is set to true in the subscrres_content.jsp ( if the user subscribed )
-                                if (AquaMethods.sessVarExists(hSession, "subscribe")) {
-                                    // name of the page loaded before this page
-                                    subscr = Boolean.valueOf(String.valueOf(hSession.getAttribute("subscribe")));
-                                    hSession.setAttribute("subscribe", "false"); // reseting the sess. var to the default
-                                } 
-                                hSession.setAttribute("webpg_name", "searchDB.jsp");
+                                    boolean subscr = false; // whether the user is coming from the subscribe
+                                    HttpSession hSession = AquaMethods.returnSession(request);
+                                    // sess. var. is set to true in the subscrres_content.jsp ( if the user subscribed )
+                                    if (AquaMethods.sessVarExists(hSession, "subscribe")) {
+                                        // name of the page loaded before this page
+                                        subscr = Boolean.valueOf(String.valueOf(hSession.getAttribute("subscribe")));
+                                        hSession.setAttribute("subscribe", "false"); // reseting the sess. var to the default
+                                    } 
+                                    hSession.setAttribute("webpg_name", "searchDB.jsp");
                                 
-                                try { 
-                                    String form_title = "";
-                                    String form_auth = "";
-                                    String form_isbn = "";
-                                    String form_price = "";
-                                    String form_sortby = "";
-                                    String form_categ = "";
-                                    String form_publyear = ""; 
+                                    try { 
+                                        String form_title = "";
+                                        String form_auth = "";
+                                        String form_isbn = "";
+                                        String form_price = "";
+                                        String form_sortby = "";
+                                        String form_categ = "";
+                                        String form_publyear = ""; 
                                 
-                                    if (subscr){ // the user just subscribed - I need to read the values from the forms
-                                        form_title = AquaMethods.readSetSessV( hSession, "input0" ); // read and reset the sess. var. ( title )
-                                        form_auth = AquaMethods.readSetSessV( hSession, "input1" ); // read and reset the sess. var. ( auth )
-                                        form_isbn = AquaMethods.readSetSessV( hSession, "input2" ); // read and reset the sess. var. ( isbn )
-                                        form_price = AquaMethods.readSetSessV( hSession, "input3" ); // read and reset the sess. var. ( price )
-                                        form_sortby = AquaMethods.readSetSessV( hSession, "input4" ); // read and reset the sess. var. ( sortby )
-                                        form_categ = AquaMethods.readSetSessV( hSession, "input5" ); // read and reset the sess. var. ( categ )             
-                                        form_publyear = AquaMethods.readSetSessV( hSession, "input6" ); // read and reset the sess. var. ( publyear )
+                                        if (subscr) { // the user just subscribed - I need to read the values from the forms
+                                            form_title = AquaMethods.readSetSessV(hSession, "input0"); // read and reset the sess. var. ( title )
+                                            form_auth = AquaMethods.readSetSessV(hSession, "input1"); // read and reset the sess. var. ( auth )
+                                            form_isbn = AquaMethods.readSetSessV(hSession, "input2"); // read and reset the sess. var. ( isbn )
+                                            form_price = AquaMethods.readSetSessV(hSession, "input3"); // read and reset the sess. var. ( price )
+                                            form_sortby = AquaMethods.readSetSessV(hSession, "input4"); // read and reset the sess. var. ( sortby )
+                                            form_categ = AquaMethods.readSetSessV(hSession, "input5"); // read and reset the sess. var. ( categ )             
+                                            form_publyear = AquaMethods.readSetSessV(hSession, "input6"); // read and reset the sess. var. ( publyear )
 
-                                        // sets all the sess. var. ( with names that start with input ) to ""
-                                        AquaMethods.setToEmptyInput(hSession);
-                                    }
+                                            // sets all the sess. var. ( with names that start with input ) to ""
+                                            AquaMethods.setToEmptyInput(hSession);
+                                        }
                                     
-                                    if ( !subscr ){ // the user is loading this page WITHOUT subscribing
-                                        form_title = request.getParameter("title"); // the text entered as the title
-                                        form_auth = request.getParameter("author"); 
-                                        form_isbn = request.getParameter("isbn"); 
-                                        form_sortby = request.getParameter("sortby"); 
-                                        form_categ = request.getParameter("categ"); // the option chosen in the drop-down list - category
-                                        form_price = request.getParameter("price_range"); // the option chosen in the drop-down list - price range
-                                        form_publyear = request.getParameter("publ_year"); // the text entered as the publ_year
+                                        if (!subscr) { // the user is loading this page WITHOUT subscribing
+                                            form_title = request.getParameter("title"); // the text entered as the title
+                                            form_auth = request.getParameter("author"); 
+                                            form_isbn = request.getParameter("isbn"); 
+                                            form_sortby = request.getParameter("sortby"); 
+                                            form_categ = request.getParameter("categ"); // the option chosen in the drop-down list - category
+                                            form_price = request.getParameter("price_range"); // the option chosen in the drop-down list - price range
+                                            form_publyear = request.getParameter("publ_year"); // the text entered as the publ_year
                                     
-                                         // sets all the sess. var. ( with names that start with input ) to ""
-                                        AquaMethods.setToEmptyInput(hSession);
-                                        
-                                        // write the value of the title ( to the sess. var ): if the user subscribes then this value needs to be read again
-                                        /*
-                                        hSession.setAttribute("input0", form_title); 
-                                        hSession.setAttribute("input1", form_auth);
-                                        hSession.setAttribute("input2", form_isbn);
-                                        hSession.setAttribute("input4", form_sortby);
-                                        hSession.setAttribute("input5", form_categ);
-                                        hSession.setAttribute("input3", form_price);
-                                        hSession.setAttribute("input6", form_publyear);
-                                        */
-                                    }
+                                            // sets all the sess. var. ( with names that start with input ) to ""
+                                            AquaMethods.setToEmptyInput(hSession);
+                                        }
                                     
-                                    // deleteSpaces: removes space characters from the begining and end of the string, and replaces 2 or more white spaces with single space
-                                    // inside of the string
-                                    form_title = AquaMethods.deleteSpaces(form_title);
-                                    form_auth = AquaMethods.deleteSpaces(form_auth);
-                                    form_isbn = AquaMethods.deleteSpaces(form_isbn);
-                                    form_publyear = AquaMethods.deleteSpaces(form_publyear);
-                                %>  
-                                <%
-                                    Connection con = ConnectionManager.getConnection(); //connecting to database ;
-                                    Statement stmt = con.createStatement();
+                                        // deleteSpaces: removes space characters from the begining and end of the string, and replaces 2 or more white spaces with single space
+                                        // inside of the string
+                                        form_title = AquaMethods.deleteSpaces(form_title);
+                                        form_auth = AquaMethods.deleteSpaces(form_auth);
+                                        form_isbn = AquaMethods.deleteSpaces(form_isbn);
+                                        form_publyear = AquaMethods.deleteSpaces(form_publyear);
+                                    %>  
+                                    <%
+                                        Connection con = ConnectionManager.getConnection(); //connecting to the database 
+                                        Statement stmt = con.createStatement();
                                     
-                                    String sQuery = "select b.title, b.price, b.isbn, b.publ_year, b.descr, a.au_name from book b, author a where (b.au_id = a.au_id)";
+                                        String sQuery = "select b.title, b.price, b.isbn, b.publ_year, b.descr, a.au_name from book b, author a where (b.au_id = a.au_id)";
                                     
-                                    // if there is anything entered in input field with the label Title
-                                    if (!(form_title.equalsIgnoreCase(""))) {
-                                        // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
-                                        form_title = AquaMethods.addBacksl(form_title);
-                                        // if the title contains ? or _ then add the Like 
-                                        if (cont_wildcard(form_title)){
-                                            sQuery += " AND (b.title LIKE '" + form_title+ "')";
-                                        } else 
-                                            sQuery += " AND (b.title='" + form_title + "')";
-                                    }     
+                                        // if there is anything entered in input field with the label Title
+                                        if (!(form_title.equalsIgnoreCase(""))) {
+                                            // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
+                                            form_title = AquaMethods.addBacksl(form_title);
+                                            // if the title contains ? or _ then add the Like 
+                                            if (cont_wildcard(form_title)){
+                                                sQuery += " AND (b.title LIKE '" + form_title + "')";
+                                            } else 
+                                                sQuery += " AND (b.title='" + form_title + "')";
+                                        }     
                                     
-                                    // if there is anything entered in the input field with the label Author's Name
-                                    if (!(form_auth.equalsIgnoreCase(""))) {
-                                        // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
-                                        form_auth = AquaMethods.addBacksl(form_auth);
-                                        // if the title contains ? or _ then add the Like 
-                                        if (cont_wildcard(form_auth))
-                                            sQuery += " AND (a.au_name LIKE '" + form_auth + "')";
-                                        else
-                                            sQuery += " AND (a.au_name='" + form_auth + "')";
-                                    }
+                                        // if there is anything entered in the input field with the label Author's Name
+                                        if (!(form_auth.equalsIgnoreCase(""))) {
+                                            // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
+                                            form_auth = AquaMethods.addBacksl(form_auth);
+                                            // if the title contains ? or _ then add the Like 
+                                            if (cont_wildcard(form_auth))
+                                                sQuery += " AND (a.au_name LIKE '" + form_auth + "')";
+                                            else
+                                                sQuery += " AND (a.au_name='" + form_auth + "')";
+                                        }
                                     
-                                    // if there is anything entered in the input field with the label ISBN
-                                    if (!(form_isbn.equalsIgnoreCase(""))) {
-                                        // if the title contains ? or _ then add the Like 
-                                        if (cont_wildcard(form_isbn))
-                                            sQuery += " AND (b.isbn LIKE '" + form_isbn + "')";
-                                        else
-                                            sQuery += " AND (b.isbn='" + form_isbn + "')";
-                                    }
+                                        // if there is anything entered in the input field with the label ISBN
+                                        if (!(form_isbn.equalsIgnoreCase(""))) {
+                                            // if the title contains ? or _ then add the Like 
+                                            if (cont_wildcard(form_isbn))
+                                                sQuery += " AND (b.isbn LIKE '" + form_isbn + "')";
+                                            else
+                                                sQuery += " AND (b.isbn='" + form_isbn + "')";
+                                        }
                                     
-                                    String tempStr; // used for building of the query 
-                                    if (form_categ.equalsIgnoreCase("all"))
+                                        String tempStr; // used for building of the query 
+                                        if (form_categ.equalsIgnoreCase("all"))
+                                            tempStr="";
+                                        else {
+                                            tempStr = form_categ;
+                                        }
+                                    
+                                        // build the query by adding whether the category is tempStr
+                                        if (!(tempStr.equalsIgnoreCase(""))) 
+                                            sQuery += " AND (b.category='" + tempStr + "')";
+                                    
                                         tempStr="";
-                                    else {
-                                        tempStr = form_categ;
-                                    }
+                                        // if the user chose for the the price range <5 GBP
+                                        if (form_price.equalsIgnoreCase("less5"))
+                                            tempStr = "< 5"; 
+                                            // if the user chose for the the price range between 5GBP and 10GBP
+                                        else if (form_price.equalsIgnoreCase("betw5-10"))
+                                            tempStr = "BETWEEN 5 AND 10";
+                                            // if the user chose for the the price range between 10GBP and 20GBP
+                                        else if (form_price.equalsIgnoreCase("betw10-20"))
+                                            tempStr = "BETWEEN 10 AND 20";
+                                        // if the user chose for the the price range between 20GBP and 30GBP
+                                        else if (form_price.equalsIgnoreCase("betw20-30"))
+                                            tempStr = "BETWEEN 20 AND 30";
+                                        // if the user chose for the the price range between 30GBP and 50GBP
+                                        else if (form_price.equalsIgnoreCase("betw30-50"))
+                                            tempStr = "BETWEEN 30 AND 50";
+                                        // if the user chose for the the price range above 50GBP
+                                        if (form_price.equalsIgnoreCase("above50"))
+                                            tempStr = "> 50";
                                     
-                                    // build the query by adding whether the category is tempStr
-                                    if (!(tempStr.equalsIgnoreCase(""))) 
-                                        sQuery += " AND (b.category='" + tempStr + "')";
-                                    
-                                    tempStr="";
-                                    // if the user chose for the the price range <5 GBP
-                                    if (form_price.equalsIgnoreCase("less5"))
-                                        tempStr = "< 5"; 
-                                    // if the user chose for the the price range between 5GBP and 10GBP
-                                    else if (form_price.equalsIgnoreCase("betw5-10"))
-                                        tempStr = "BETWEEN 5 AND 10";
-                                    // if the user chose for the the price range between 10GBP and 20GBP
-                                    else if (form_price.equalsIgnoreCase("betw10-20"))
-                                        tempStr = "BETWEEN 10 AND 20";
-                                    // if the user chose for the the price range between 20GBP and 30GBP
-                                    else if (form_price.equalsIgnoreCase("betw20-30"))
-                                        tempStr = "BETWEEN 20 AND 30";
-                                    // if the user chose for the the price range between 30GBP and 50GBP
-                                    else if (form_price.equalsIgnoreCase("betw30-50"))
-                                        tempStr = "BETWEEN 30 AND 50";
-                                    // if the user chose for the the price range above 50GBP
-                                    if (form_price.equalsIgnoreCase("above50"))
-                                        tempStr = "> 50";
-                                    
-                                    // build the query by adding whether the price is in required range
-                                    if (!(tempStr.equalsIgnoreCase(""))) 
-                                        sQuery += " AND (b.price " + tempStr + " )";
-                                   
-                                    // if there is anything entered in the input field with the label Publication Year
-                                    if (!(form_publyear.equalsIgnoreCase(""))) {
-                                        // if the title contains ? or _ then add the Like 
-                                        if (cont_wildcard(form_publyear))
-                                            sQuery += " AND (b.publ_year LIKE '" + form_publyear + "')";
-                                        else
-                                            sQuery += " AND (b.publ_year='" + form_publyear + "')";
-                                    }
-                                    
-                                    // add whether the query results should be sorted ASC or DESC based on the user's choice
-                                    sQuery += " ORDER BY b.price "; 
-                                    
-                                    if (form_sortby.equalsIgnoreCase("low")) 
-                                        sQuery += "ASC";
-                                    else
-                                        sQuery += "DESC";
-                                    sQuery += ";";
-                                    
-                                    out.print(sQuery);
-                                    // execute the query - the result will be in the rs
-                                    ResultSet rs = stmt.executeQuery(sQuery); 
-                                    out.println("<br />");
-                                    
-                                    // after clicking on the button searchDB.jsp is shown
-                                    out.println("<form action=\"search_page.jsp\" method=\"post\">");
-                                    
-                                    if (!(rs.next())){ // there are no books that meet the search criteria
-                                        out.println("<span class=\"red_text\">There are no books that meet the search criteria!</span>");
-                                        out.println("</br></br>");
-                                    } else {
-                                        out.println("The following books meet the search criteria: ");
-                                       
-                                        // show the result in an unordered list
-                                        out.print("<ul>");
-                                        // if in the result set there is the next row
-                                        do 
-                                        {
-                                            // read the title 
-                                            String sTitle = rs.getString("title");
-                                            // read the name of the author
-                                            String sAuthor = rs.getString("au_name");
-                                            // read the price
-                                            String sPrice = rs.getString("price");
-                                            // read the ISBN
-                                            String sISBN = rs.getString("isbn");
-                                            // show the value for the title, author and price
-                                            String descr = rs.getString("descr");
-                                            out.print("<li><b>" + sTitle + "</b> by (author) " + sAuthor ); 
-                                            // if there is value for the price : show it
-                                            if (sPrice != null){
-                                                out.print(" ( <b>price: </b>" + sPrice + " GBP )");
-                                            }
-                                            // if there is an ISBN : show it
-                                            if (sISBN != null) {
-                                                out.print("<br /><b>" + "ISBN: </b>" + sISBN );
-                                            }
-                                            // if there is a book description : show it
-                                            if (descr != null) {
-                                                out.print("<br /><b>" + "Description: </b>" + descr );
-                                            }
-                                            out.print("</li>");
-                                        } while(rs.next());
+                                        // build the query by adding whether the price is in required range
+                                        if (!(tempStr.equalsIgnoreCase(""))) 
+                                            sQuery += " AND (b.price " + tempStr + " )";
 
-                                        out.print("</ul>");
+                                        // if there is anything entered in the input field with the label Publication Year
+                                        if (!(form_publyear.equalsIgnoreCase(""))) {
+                                            // if the title contains ? or _ then add the Like 
+                                            if (cont_wildcard(form_publyear))
+                                                sQuery += " AND (b.publ_year LIKE '" + form_publyear + "')";
+                                            else
+                                                sQuery += " AND (b.publ_year='" + form_publyear + "')";
+                                        }
+                                    
+                                        // add whether the query results should be sorted ASC or DESC based on the user's choice
+                                        sQuery += " ORDER BY b.price "; 
+
+                                        if (form_sortby.equalsIgnoreCase("low")) 
+                                            sQuery += "ASC";
+                                        else
+                                            sQuery += "DESC";
+                                        sQuery += ";";
+                                    
+                                        // execute the query - the result will be in the rs
+                                        ResultSet rs = stmt.executeQuery(sQuery); 
+                                        out.println("<br />");
+
+                                        // after clicking on the button searchDB.jsp is shown
+                                        out.println("<form action=\"search_page.jsp\" method=\"post\">");
+                                    
+                                        if (!(rs.next())) { // there are no books that meet the search criteria
+                                            out.println("<span class=\"red_text\">There are no books that meet the search criteria!</span>");
+                                            out.println("</br></br>");
+                                        } else {
+                                            out.println("The following books meet the search criteria: ");
+
+                                            // show the result in an unordered list
+                                            out.print("<ul>");
+                                            // if in the result set there is the next row
+                                            do {
+                                                // read the title 
+                                                String sTitle = rs.getString("title");
+                                                // read the name of the author
+                                                String sAuthor = rs.getString("au_name");
+                                                // read the price
+                                                String sPrice = rs.getString("price");
+                                                // read the ISBN
+                                                String sISBN = rs.getString("isbn");
+                                                // show the value for the title, author and price
+                                                String descr = rs.getString("descr");
+                                                out.print("<li><b>" + sTitle + "</b> by ( author ) " + sAuthor ); 
+                                                // if there is value for the price : show it
+                                                if (sPrice != null){
+                                                    out.print(" ( <b>price: </b>" + sPrice + " GBP )");
+                                                }
+                                                
+                                                // if there is an ISBN : show it
+                                                if (sISBN != null) {
+                                                    out.print("<br /><b>" + "ISBN: </b>" + sISBN );
+                                                }
+                                                
+                                                // if there is a book description : show it
+                                                if (descr != null) {
+                                                    out.print("<br /><b>" + "Description: </b>" + descr );
+                                                }
+                                                
+                                                out.print("</li>");
+                                            } while(rs.next());
+
+                                            out.print("</ul>");
+                                        }
+                                        
+                                        // adding the Search button to the form; btn-sm is used for smaller ( narrower ) size of the control -->
+                                        out.print("<button type=\"submit\" class=\"btn btn-info btn-sm\">Search</button>");
+                                        out.println("</form>");
+                                    } catch(Exception e) {
+                                        String sMessage = "ERR_SEARCH";
+                                        String sTitle = "Search!"; // used for passing the title from one JSP script to the other
+                                        hSession.setAttribute("source_name", "Search"); // on which page I am now
+                                        hSession.setAttribute("title", sTitle); // setting the attribute message to the value sTitle
+                                        hSession.setAttribute("message", sMessage); // setting the attribute message to the value sMessage
+                                        response.sendRedirect("error_succ.jsp"); // redirects the response to error_succ.jsp
                                     }
-                                    // adding the Search button to the form; btn-sm is used for smaller ( narrower ) size of the control -->
-                                    out.print("<button type=\"submit\" class=\"btn btn-info btn-sm\">Search</button>");
-                                    out.println("</form>");
-                                }catch(Exception e){
-                                    String sMessage = "ERR_SEARCH";
-                                    String sTitle = "Search!"; // used for passing the title from one JSP script to the other
-                                    hSession.setAttribute("source_name", "Search"); // on which page I am now
-                                    hSession.setAttribute("title", sTitle); // setting the attribute message to the value sTitle
-                                    hSession.setAttribute("message", sMessage); // setting the attribute message to the value sMessage
-                                    response.sendRedirect("error_succ.jsp"); // redirects the response to error_succ.jsp
-                                }
                                 %>
 
                             </div> <!-- end of class="col" -->

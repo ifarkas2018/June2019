@@ -14,10 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import miscellaneous.AquaMethods;
 
-/**
- *
- * @author user
- */
 public class LoginServlet extends HttpServlet {
 
     /**
@@ -33,7 +29,6 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -87,13 +82,12 @@ public class LoginServlet extends HttpServlet {
             
             // method login returns "admin" if the user is administrator, for the regular employee returns "emp", otherwise it returns "customer"
             String userType = UserDAO.login(userName, password);
-            //HttpSession hSession = request.getSession(); // retrieve the session to which I am going to add variables
             HttpSession hSession = AquaMethods.returnSession(request);
-            if (userType.equals("emp")){ // logged in as employee
+            if (userType.equals("emp")) { // logged in as employee
                 hSession.setAttribute("user_type", "emp"); // the user logged in as employee ( can do everything except adding new users )
                 hSession.setAttribute("logged_in", "true" ); // set the session variable logged_in ( whether the user is logged in )
                 response.sendRedirect("index.jsp"); // show the Home page for that user - the user logged in    
-            } else if (userType.equals("admin")){ // logged in as admin
+            } else if (userType.equals("admin")) { // logged in as admin
                 hSession.setAttribute("user_type", "admin"); // the user logged in as adm ( can do everything )
                 hSession.setAttribute("logged_in", "true" ); // set the session variable logged_in ( whether the user is logged in )
                 response.sendRedirect("index.jsp"); // show the Home page for that user - the user logged in    
@@ -104,10 +98,10 @@ public class LoginServlet extends HttpServlet {
                 hSession.setAttribute("source_name", "Login"); // on which page I am now
                 hSession.setAttribute("message", sMessage); // setting the attribute message to the value of the sMessage
                 hSession.setAttribute("title", sTitle); // setting the attribute title to the value of the sTitle
-                hSession.setAttribute("logged_in", "false" ); // set the session variable logged_in ( whether the user is logged in )
+                hSession.setAttribute("logged_in", "false"); // set the session variable logged_in ( whether the user is logged in )
                 response.sendRedirect("error_succ.jsp"); // show the error page    
             }
-        } catch (Throwable theException){
+        } catch (Throwable theException) {
             System.out.println(theException); 
         }
     }

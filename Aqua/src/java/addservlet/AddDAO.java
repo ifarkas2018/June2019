@@ -12,12 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.servlet.http.HttpSession;
-import miscellaneous.AquaMethods;
 
 /**
  *
  * @author user
  */
+
 public class AddDAO {
     static Connection con;
     static ResultSet rs = null;  // object where the query's results are stored
@@ -37,50 +37,21 @@ public class AddDAO {
             // If the select returns no record then I do the insert
             // 1. the select statement
             String rs_query=""; 
-            // ResultSet rs; // object where the query's results are stored
-            //boolean empty_field = false;
-            // FIX THIS HERE
-            // if the user didn't enter anything for the publisher name and city then don't do anything, otherwise add the entered values into the 
-            // database
-            //if (publisher.equalsIgnoreCase("")) // (((publ_city.equalsIgnoreCase(""))) @@@@@@@@@@@@@@@@@@@@@@@
-                //empty_field = true;
-            if (!((publisher.equalsIgnoreCase("")))){
-                // if the publisher's name is entered
-                 //if (!((publisher.equalsIgnoreCase("")))) {
-                    //rs_query = "select publ_name from publisher where (publ_name = '" + publisher + "')";
-                //} 
-                // if (!((publ_city.equalsIgnoreCase("")))) {
-                    // rs_query += "AND (city = '" + publ_city + "')";
-                // }
           
-                //rs_query += ";";
-                // rs = stmt.executeQuery(rs_query);
+            if (!((publisher.equalsIgnoreCase("")))){
                 PreparedStatement preparedStmt;
-                // if the record with the entered value for the publisher name and city doesn't exist then add that record
-                //if (!rs.next()) {
-                    // check out whether in the database there could be only the name of the publisher and not the city 
-                    rs_query = "select publ_id from publisher where (publ_name = '" + publisher + "');";
-                    rs = stmt.executeQuery(rs_query);
-                    // the record with only publishers name exists in the database then update the record with the city name
-                    // if (rs.next()){
-                        // find the publ_id of the record with the publisher's name
-                        // String publid = rs.getString("publ_id");
-                        
-                        // update the name of the city for that publisher
-                        //String query = "update publisher set city='" + publ_city + "' where publ_id='" + publid + "';";
-                        //preparedStmt = con.prepareStatement(query);
-                        //preparedStmt.execute();
-                    if (!rs.next()) {
-                        // 2. the insert statement
-                        String query = "insert into publisher(publ_name) values('" + publisher + "');";
-                        //out.print("query: " + query);
-                        preparedStmt = con.prepareStatement(query);
-                        preparedStmt.execute();
-                    }
-                //}
+                // check out whether in the database there could be only the name of the publisher and not the city 
+                rs_query = "select publ_id from publisher where (publ_name = '" + publisher + "');";
+                rs = stmt.executeQuery(rs_query);
+                if (!rs.next()) {
+                    // 2. the insert statement
+                    String query = "insert into publisher(publ_name) values ('" + publisher + "');";
+                    preparedStmt = con.prepareStatement(query);
+                    preparedStmt.execute();
+                }
             }
             excOccurred = false; // an axception didn't occur
-        } catch (SQLException e){
+        } catch (SQLException e) {
             excOccurred = true; // an axception occurred
         }
         return excOccurred; // return whether an exception occurred
@@ -88,7 +59,7 @@ public class AddDAO {
     
     // authExistsAdd : check whether in the table AUTHOR record with the entered AUTHOR's NAME exists. if the record doesn't exist then adds the record.
     // if an exception occurred returns TRUE otherwise returns FALSE
-    public static boolean authExistsAdd( String author){
+    public static boolean authExistsAdd(String author) {
         boolean excOccurred = false; // did an exception occur
         Statement stmt;
         
@@ -110,20 +81,19 @@ public class AddDAO {
             if (author.equalsIgnoreCase(""))
                 empty_field = true; 
             if (!(empty_field)){
-                rs_query = "select au_name from author where (au_name = '"+author+"');";
+                rs_query = "select au_name from author where (au_name = '" + author + "');";
                 rs = stmt.executeQuery(rs_query);
-
                 PreparedStatement preparedStmt;
+                
                 // 2. the insert statement - in case the author with that name doesn't exist in the table author
                 if (!rs.next()) {
                     String query = "insert into author(au_name) values('" + author + "');";
-                    //out.print("query: " + query);
                     preparedStmt = con.prepareStatement(query);
                     preparedStmt.execute();
                 }
             }
             excOccurred = false; // an axception didn't occur
-        } catch (SQLException e){
+        } catch (SQLException e) {
             excOccurred = true; // an axception occurred
         }
         return excOccurred; // return whether an exception occurred
@@ -150,7 +120,7 @@ public class AddDAO {
             
             // publExistsAdd : checks out whether the record with the entered PUBLISHER NAME exists. If it doesn't then adds the new record.
             // returns TRUE if an exception occurred otherwise it returns FALSE
-            excOccurred = publExistsAdd( publisher);
+            excOccurred = publExistsAdd(publisher);
             if (excOccurred)
                 returnStr = "ERR_ADD";
             else {    
@@ -197,43 +167,32 @@ public class AddDAO {
                         if (!(yrpublished.equalsIgnoreCase(""))) {
                             query += ", publ_year"; // add yrpublished to the list of the columns
                         }
-
-                        // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
-                        //author = AquaMethods.addBacksl(author);
-                        //publisher = AquaMethods.addBacksl(publisher);
                         
                         query += " ) values ((select au_id from author where au_name='" + author + "'),"; // determine the au_id for the author
                         query += " (select publ_id from publisher where (publ_name='" + publisher + "') "; // determine the publ_id for the publisher
-                        //if (!(publ_city.equalsIgnoreCase("")))
-                            //query += "and (city='" + publ_city + "')"; // add the city to the query
                         query += " ),";
-                        if (!(title.equalsIgnoreCase(""))){
-                            // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
-                            // title = AquaMethods.addBacksl(title);
+                        if (!(title.equalsIgnoreCase(""))) {
                             query += "'" + title + "'"; // add the title to the query
                         }
-                        if ((!(title.equalsIgnoreCase(""))) && (!(isbn.equalsIgnoreCase("")))){
+                        if ((!(title.equalsIgnoreCase(""))) && (!(isbn.equalsIgnoreCase("")))) {
                             query +=  ",";
                         }
-                        if (!(isbn.equalsIgnoreCase(""))){
+                        if (!(isbn.equalsIgnoreCase(""))) {
                             query += "'" + isbn + "'"; // add the isbn to the query
                         }
-
                         if (!(price.equalsIgnoreCase(""))){
                             query += ",'" + price + "'"; // add the price to the query
                         }
-                        if (!(pages.equalsIgnoreCase(""))){
+                        if (!(pages.equalsIgnoreCase(""))) {
                             query += ",'" + pages + "'"; // add the pages to the query
                         }
-                        if (!(category.equalsIgnoreCase(""))){
+                        if (!(category.equalsIgnoreCase(""))) {
                             query += ",'" + category + "'"; // add the pages to the query
                         }
-                        if (!(descr.equalsIgnoreCase(""))){
-                            // addBacksl replaces every occurence of \ with \\\\ and replaces every occurence of ' with \\'
-                            //descr = AquaMethods.addBacksl(descr);
+                        if (!(descr.equalsIgnoreCase(""))) {
                             query += ",'" + descr + "'"; // add the pages to the query
                         }
-                        if (!(yrpublished.equalsIgnoreCase(""))){
+                        if (!(yrpublished.equalsIgnoreCase(""))) {
                             query += ",'" + yrpublished + "'"; // add the pages to the query
                         }
                         query += ");";
@@ -246,8 +205,7 @@ public class AddDAO {
                     } 
                 } // end of else ( of if (excOccured))
             } // end of else ( of if (excOccured))
-        
-        } catch (SQLException e){
+        } catch (SQLException e) {
             returnStr = "ERR_ADD";
         }
         
@@ -257,8 +215,8 @@ public class AddDAO {
                 try {
                     con.close(); // closing the Connection object
                 } catch (Exception e) {
+                
                 }
-
                 con = null;
             }
             
@@ -266,6 +224,7 @@ public class AddDAO {
                 try {
                     rs.close(); // closing the RecordSet object
                 } catch (Exception e) {
+                
                 }
                 rs = null;
             }
@@ -274,6 +233,7 @@ public class AddDAO {
                 try {
                     stmt.close(); // closing the Statement object
                 } catch (Exception e) {
+                
                 }
                 stmt = null;
             }
@@ -282,6 +242,7 @@ public class AddDAO {
                 try {
                     preparedStmt.close(); // closing the Statement object
                 } catch (Exception e) {
+                
                 }
                 preparedStmt = null;
             }

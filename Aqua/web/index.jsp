@@ -11,24 +11,23 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
         <!-- link to the external stylesheet -->
         <link href="css/templatecss.css" rel="stylesheet" type="text/css">
+        
         <title>Aqua Books</title>
     </head>
     <body>
         <% 
             HttpSession hSession = AquaMethods.returnSession(request);
-            // IDEA : session var. index_first if it doesn't exist call setToEmpty, set index_first to false @@@@@@@@@@@@@@@@
-            //AquaMethods.setToEmpty(request); @@@@@@@@@@@@@@@@@@@@@@@
             
-            if ( AquaMethods.sessVarExists(hSession, "fill_in")) {  
+            if (AquaMethods.sessVarExists(hSession, "fill_in")) {  
                 // set the value of fill_in to default ( whether there are some session var. which contain values of the input fields
                 // that need later to be filled in )
                 hSession.setAttribute("fill_in","false");  
             }
             
-            
-            if ( AquaMethods.sessVarExists(hSession, "page_name")) { 
+            if (AquaMethods.sessVarExists(hSession, "page_name")) { 
                 // set the value of the page_name to default
                 // page_name - name of the page where the user was just before he entered the email. 
                 hSession.setAttribute("page_name", ""); 

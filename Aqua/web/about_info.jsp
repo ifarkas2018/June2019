@@ -4,18 +4,17 @@
     Author     : Ingrid Farkas
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="miscellaneous.AquaMethods"%>
+<%@page contentType = "text/html" pageEncoding = "UTF-8"%>
+<%@page import = "miscellaneous.AquaMethods"%>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Aqua Books</title>
     </head>
     <body>
         <%
-            HttpSession hSession = AquaMethods.returnSession(request);
+            HttpSession hSession = AquaMethods.returnSession( request );
             hSession.setAttribute("webpg_name", "about_page.jsp");
             // reseting the sess. var to the default: if the user just did do the subscribe, the form on the NEXT web page DOESN'T NEED 
             // to show the previous values 
@@ -63,7 +62,6 @@
                                 <p>If you are able to visit us please come and enjoy the store which is very unique and 
                                     which is a very nice place to find the books you need and which you don't need but would like to read.
                                 </p>
-                                
                             </div> <!-- end of class="col" -->
                         </div> <!-- end of class="row" --> 
                     </div> <!-- end of class="container" -->
@@ -72,8 +70,8 @@
         </div> <!-- end of class="whitebckgr" -->
             
         <!-- adding a new row; class whitebckgr is for setting the background to white -->
-        <div class="whitebckgr">
-            <div class="col">
+        <div class = "whitebckgr">
+            <div class = "col">
                 &nbsp; &nbsp;
             </div>
         </div> 

@@ -1,7 +1,7 @@
 <%-- 
     Document   : header
     Created on : 29-Mar-2019, 22:46:27
-    Author     : user
+    Author     : Ingrid Farkas
 --%>
 
 <%@page import="java.util.Enumeration"%>
@@ -13,7 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%  final String URL_EMP_ADM = "AquaBookstore/Aqua"; // the URL for employees and administrators
-    final String URL_CUST = "AquaBookstore"; // the YRL for customers
+    final String URL_CUST = "AquaBookstore"; // the URL for customers
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,18 +29,15 @@
         <meta name="author" content="Ingrid Farkas"> 
         <!-- used for making responsive web pages on devices with different screen sizes -->
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
-        <!-- online Bootstrap CSS -->
-        
-        <!-- <meta http-equiv='cache-control' content='no-cache'>
-<meta http-equiv='expires' content='0'>
-<meta http-equiv='pragma' content='no-cache'> -->
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
         <!-- a link to the Bootstrap CDN -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> 
         <link rel="stylesheet" href="css/templatecss.css">
+        
         <script>
             // setCookie: creates 2 cookies 
             // 1. cookie : fill_in = false 
@@ -90,18 +87,15 @@
                     &nbsp; &nbsp; <!-- adding some empty space -->
                 </div>
             </div>
-            <%! 
-            %>
+            
             <%
                 String emp_adm = ""; // is the user using the website for employees and administrators ( and not for customers ) 
                 String logged_in = ""; // is the user logged in
                 String userType = ""; // type of the user: admin, emp, customer ( the possible values )
-                //Enumeration enumAttr = null; // enumeration of variable names added to the session
                 String attrName = ""; // variable name in the session
                 boolean attr_found = false; // is the emp_adm one of variables in the session
                 
                 HttpSession hSession1 = AquaMethods.returnSession(request);
-                //HttpSession hSession1 = request.getSession(); // retrieve the session ( to which I am going to add and read variables )
                 
                 // sessVarExists: returns whether the session var. user_type exists in the session
                 // user_type: admin, emp, customer ( the possible values ) ( exists after the user tried to log in )
@@ -109,28 +103,19 @@
                 if (attr_found) // if the attribute named user_type was found
                     userType = String.valueOf(hSession1.getAttribute("user_type")); // admin, emp, customer ( the possible values )
                 
-                String URL_String = (request.getRequestURL()).toString(); // the URL of the website loaded before thi one
-                
-                /* enumAttr = hSession1.getAttributeNames(); // the names of the session variables 
-                while ((enumAttr.hasMoreElements()) && (!attr_found)) { // while the Enumeration has more el.
-                    attrName = String.valueOf(enumAttr.nextElement()); // read the next element
-                    if (attrName.equals("emp_adm")) {
-                       attr_found = true; // attribute with the name emp_adr was found
-                    }
-                }
-                */
+                String URL_String = (request.getRequestURL()).toString(); // the URL of the website loaded before this one
                 
                 // is the user using using the website for employees and administrators ( and not for customers ) 
                 attr_found = AquaMethods.sessVarExists(hSession1, "emp_adm"); // sessVarExists: returns whether the session var. emp_adm exists in the session
                 if (attr_found) // if the attribute named emp_adm was found
                     emp_adm = String.valueOf(hSession1.getAttribute("emp_adm")); // read the value of  the attribute
                 
-                if (emp_adm.equals("")){ // if the attribute named emp_adm was not found
-                    if (URL_String.contains(URL_EMP_ADM)){ // if the user is using the website for employees or administrators
+                if (emp_adm.equals("")) { // if the attribute named emp_adm was not found
+                    if (URL_String.contains(URL_EMP_ADM)) { // if the user is using the website for employees or administrators
                         emp_adm = "true";
                         hSession1.setAttribute("emp_adm1", emp_adm); // add the attribute to the session ( value : true )
                         
-                    } else if (URL_String.contains(URL_CUST)){ // if the user is using the website for customers // AquaBookstore @@@@@@@@@@@@@@@@
+                    } else if (URL_String.contains(URL_CUST)) { // if the user is using the website for customers // AquaBookstore @@@@@@@@@@@@@@@@
                         emp_adm = "false";
                         hSession1.setAttribute("emp_adm", emp_adm); // add the attribute to the session ( value : false )
                     }
@@ -148,7 +133,6 @@
                 12 columns on the small screens, 12 columns on the extra small sized screens -->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
                     <!-- navigation bar -->
-                    <!-- @@@@@@@@@@@@@@@ there is NO problem with the navbar remove using JSP the extra links at certain width -->
                     <!-- navbar-expand-md : the navbar collapses at medium breakpoint -->
                     <nav class="navbar navbar-expand-md navbar-light bg-light">
                         <a class="navbar-brand"><img src="images/bookshelf.png"></a> <!-- company logo -->
@@ -187,11 +171,11 @@
                                             </a>
                                             <!-- the dropdown submenu -->
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="AddSessVar" onclick = "cookieFillIn('search_page.jsp')">Search Book</a> <!-- Search Book link on the submenu --> 
+                                                <a class="dropdown-item" href="AddSessVar" onclick="cookieFillIn('search_page.jsp')">Search Book</a> <!-- Search Book link on the submenu --> 
                                                 <div class="dropdown-divider"></div> <!-- the divider on the drop down menu -->
-                                                <a class="dropdown-item" href="AddSessVar" onclick = "cookieFillIn('add_page.jsp')" >Add Book</a> <!-- Add Book link on the submenu --> 
-                                                <a class="dropdown-item" href="AddSessVar" onclick = "cookieFillIn('update_prev.jsp')">Update Book</a> <!-- Update Book link on the submenu --> 
-                                                <a class="dropdown-item" href="AddSessVar" onclick = "cookieFillIn('delete_title.jsp')">Delete Book</a> <!-- Delete Book link on the submenu --> 
+                                                <a class="dropdown-item" href="AddSessVar" onclick="cookieFillIn('add_page.jsp')">Add Book</a> <!-- Add Book link on the submenu --> 
+                                                <a class="dropdown-item" href="AddSessVar" onclick="cookieFillIn('update_prev.jsp')">Update Book</a> <!-- Update Book link on the submenu --> 
+                                                <a class="dropdown-item" href="AddSessVar" onclick="cookieFillIn('delete_title.jsp')">Delete Book</a> <!-- Delete Book link on the submenu --> 
                                             </div>
                                         </li>
                                 <%
@@ -199,11 +183,11 @@
                                 %>
                                 <!-- About link on the navbar -->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="AddSessVar" onclick = "cookieFillIn('about_page.jsp')">About</a>
+                                    <a class="nav-link" href="AddSessVar" onclick="cookieFillIn('about_page.jsp')">About</a>
                                 </li>
                                 <!-- Contact link on the navbar -->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="AddSessVar" onclick = "cookieFillIn('contact_page.jsp')">Contact</a>
+                                    <a class="nav-link" href="AddSessVar" onclick="cookieFillIn('contact_page.jsp')">Contact</a>
                                 </li>
                             </ul>
                                 
@@ -211,7 +195,7 @@
                             <!-- ml-auto : this part of the links on the navabar is on the RIGHT hand side -->
                             <ul class="navbar-nav ml-auto">
                                 <%
-                                    if (userType.equals("admin")){
+                                    if (userType.equals("admin")) {
                                 %>    
                                         <!-- Sign Up link on the navbar -->
                                         <li class="nav-item">
@@ -223,7 +207,7 @@
                                 
                                 <%
                                     // if the user is logged in show the Log Out link
-                                    if (logged_in.equals("true")){
+                                    if (logged_in.equals("true")) {
                                 %>    
                                         <!-- Login link on the navbar -->
                                         <li class="nav-item">
@@ -232,11 +216,11 @@
                                 <%
                                     // if the user is logged in as administrator ("admin") or employee ("emp") or the user accessed the website for 
                                     // employees or administrators
-                                    } else if ((userType.equals("admin")) || (userType.equals("emp")) || (emp_adm.equals("true"))){
+                                    } else if ((userType.equals("admin")) || (userType.equals("emp")) || (emp_adm.equals("true"))) {
                                 %>    
                                         <!-- Login link on the navbar -->
                                         <li class="nav-item">
-                                            <a class="nav-link" href="AddSessVar" onclick = "cookieFillIn( 'login_page.jsp' )">Login</a>
+                                            <a class="nav-link" href="AddSessVar" onclick="cookieFillIn('login_page.jsp')">Login</a>
                                         </li>
                                 <%
                                     }

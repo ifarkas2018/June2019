@@ -14,10 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import miscellaneous.AquaMethods;
 
-/**
- *
- * @author Ingrid Farkas
- */
 public class AddServlet extends HttpServlet {
 
     /**
@@ -28,12 +24,12 @@ public class AddServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     */
+     */ 
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -79,7 +75,6 @@ public class AddServlet extends HttpServlet {
         String form_auth = request.getParameter("author"); // the text entered as the author
         String form_title = request.getParameter("title"); // the text entered as the title
         String form_isbn = request.getParameter("isbn"); // the text entered as the isbn 
-        // String form_city = request.getParameter("publ_city"); // the text entered as the city of the publisher
         String form_price = request.getParameter("price"); // the text entered as the price
         String form_pages = request.getParameter("pages"); // the text entered as pages
         String form_categ = request.getParameter("category"); // the choice of the category
@@ -101,21 +96,18 @@ public class AddServlet extends HttpServlet {
         form_title = AquaMethods.addBacksl(form_title);
         form_auth = AquaMethods.addBacksl(form_auth);
         form_descr = AquaMethods.addBacksl(form_descr);
-        //form_isbn = AquaMethods.addBacksl(form_isbn);
-        //form_price = AquaMethods.addBacksl(form_price);
-        //form_pages = AquaMethods.addBacksl(form_pages);
         form_publ = AquaMethods.addBacksl(form_publ);
-        //form_yrpublished = AquaMethods.addBacksl(form_yrpublished);
         
         // method addNewBook adds a new book to the table book ( returns a String based on which one the error_succ.jsp shows the message )
         String sMessage = AddDAO.addNewBook(hSession, form_title, form_auth, form_publ, form_isbn, form_price, form_pages, form_categ, form_descr, form_yrpublished);
         
         // depending on the value returned by the method addNewBook determine sTitle
-        if ((sMessage.equals("ERR_ADD")) || (sMessage.equals("ERR_ADD_EXISTS"))){
+        if ((sMessage.equals("ERR_ADD")) || (sMessage.equals("ERR_ADD_EXISTS"))) {
             sTitle = "Error!"; // used for passing the title to the JSP
-        } else if (sMessage.equals("SUCC_ADD")){
+        } else if (sMessage.equals("SUCC_ADD")) {
             sTitle = "Add Book!"; // used for passing the title to the JSP
         }
+        
         hSession.setAttribute("source_name", "Add Book"); // on which page I am now
         hSession.setAttribute("message", sMessage); // setting the attribute message to the value sMessage
         hSession.setAttribute("title", sTitle); // setting the attribute message to the value sTitle

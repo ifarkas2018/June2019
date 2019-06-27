@@ -9,22 +9,12 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author user
- */
 public class AquaMethods {
-    // private static HttpSession hSession;
-    
     
     public static HttpSession returnSession( HttpServletRequest request ){
         HttpSession hSession = request.getSession(); // retrieve the session ( to which I am going to add and read variables )
         return hSession;
     }
-    
-    //public static HttpSession getSession(HttpServletRequest request){
-        //return hSession;
-    //}
     
     // sessVarExists: returns whether the session var. named name exists in the hSession
     public static boolean sessVarExists(HttpSession hSession, String name){ 
@@ -52,9 +42,6 @@ public class AquaMethods {
             if (!readVal.equalsIgnoreCase("")) { 
                 hSession.setAttribute(sessVar, ""); // the next time the page is loaded the sessVar is ""  
             }
-            // @@@@@@@@@@@ delete the next 2 lines
-            String newreadVal = String.valueOf(hSession.getAttribute(sessVar));
-            newreadVal += "aaa";
         } 
         return readVal;
     }
@@ -63,30 +50,24 @@ public class AquaMethods {
     public static void setToEmptyInput(HttpSession hSession){
         String attrName = ""; // the name of the attribute in the session
         Enumeration enumAttr; // enumeration of variable names added to the session
-        //HttpSession hSession = request.getSession(); // retrieve the session 
         enumAttr = hSession.getAttributeNames(); // the names of the session variables 
         while ((enumAttr.hasMoreElements())) { // while the Enumeration has more el.
             attrName = String.valueOf(enumAttr.nextElement()); // read the next element
             if (attrName.startsWith("input")) {
-                //hSession.setAttribute(attrName, ""); // attribute with the name emp_adr was found
                 hSession.removeAttribute(attrName);
             }
         }
     }
     
     // setToEmpty: set the session variable values to "" 
-    public static void setToEmpty( HttpSession hSession ){
+    public static void setToEmpty(HttpSession hSession) {
         String attrName = ""; // the name of the attribute in the session
-        Enumeration enumAttr; // enumeration of variable names added to the session
-        //HttpSession hSession = returnSession(request); // retrieve the session 
+        Enumeration enumAttr; // enumeration of variable names added to the session 
         enumAttr = hSession.getAttributeNames(); // the names of the session variables 
         while ((enumAttr.hasMoreElements())) { // while the Enumeration has more el.
             attrName = String.valueOf(enumAttr.nextElement()); // read the next element
-            //if (attrName.startsWith("input")) {
-                hSession.removeAttribute(attrName); // attribute with the name emp_adr was found
-            //}
+            hSession.removeAttribute(attrName); // attribute with the name emp_adr was found
         }
-       
     }
     
     // addBackslash : adds 2 back slashes ( if isApostrophy = true )  before the ' 
@@ -124,13 +105,11 @@ public class AquaMethods {
             if (pos >= 0) {
                 strToChar = descr.substring(0, pos);
                 strAfterChar = descr.substring(pos+1, stringLen);
-
                 newDescription = newDescription.concat(strToChar);
                 newDescription = newDescription.concat(strCharacter);
                 newDescription = newDescription.concat(strAfterChar);
                 descr = newDescription;
                 
-
                 stringLen++; // I've added to the string \
                 
                 if (!isApostrophy) {
@@ -163,5 +142,4 @@ public class AquaMethods {
         newString = newString.replaceAll("\\s+", " "); // replace 2 or more white spaces with single space
         return newString;
     }
-    
 }

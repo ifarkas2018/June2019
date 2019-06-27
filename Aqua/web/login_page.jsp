@@ -1,10 +1,10 @@
 <%-- 
     Document   : login_page.jsp
     Created on : 31-Mar-2019, 21:15:08
-    Author     : user
+    Author     : Ingrid Farkas
 --%>
 
-<!-- login_page.jsp - when the user clicks on the Login link ( the navigation bar ) for the employee this web page is shown -->
+<!-- login_page.jsp - when the user clicks on the Login link ( the navigation bar ) this web page is shown -->
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="miscellaneous.AquaMethods"%>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
-        <title>Login</title>
+        <title>Aqua Books - Login</title>
         <!-- link to the external style sheet -->
         <link href="css/templatecss.css" rel="stylesheet" type="text/css">
     </head>

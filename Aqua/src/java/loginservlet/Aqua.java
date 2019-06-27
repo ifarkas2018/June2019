@@ -13,10 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author user
- */
 public class Aqua extends HttpServlet {
 
     /**
@@ -30,6 +26,7 @@ public class Aqua extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         HttpSession hSession = request.getSession(); // retrieve the session to which I am going to add variables
         hSession.setAttribute("emp_adm", "true"); // the user is using URL for employees and andministrators
         response.sendRedirect("index.jsp"); // show the Home page 
@@ -61,7 +58,6 @@ public class Aqua extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -73,12 +69,10 @@ public class Aqua extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet Aqua at " + request.getContextPath() + "</h1>");
             out.println("<form>");
-            // out.println("<input type=\"text\" name=\"is_company\" id=\"is_company\" value=\"true\">");
             out.println("</form>");
             out.println("</body>");
             out.println("</html>");
-        }
-        // response.sendRedirect("error_succ.jsp"); // show the error page 
+        } 
     }
 
     /**

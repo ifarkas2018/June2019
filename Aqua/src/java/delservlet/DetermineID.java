@@ -10,12 +10,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 
-/*
- *
- * author Ingrid Farkas
- * project Aqua Bookstore
- */
-
 public class DetermineID {
     
     // for the author named auth_name returns the author id
@@ -33,7 +27,7 @@ public class DetermineID {
             if (rs.next()) 
                 authid = rs.getString("au_id");
             return authid;
-        } catch ( SQLException ex) {
+        } catch (SQLException ex) {
             return ""; // if an exception occurred return author id = ""
         }
     }

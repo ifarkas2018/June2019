@@ -3,7 +3,9 @@
     Created on : 18-Sep-2018, 01:33:11
     Author     : Ingrid Farkas
 --%>
-<!-- search_form.jsp - adds the form on the page Search Book -->
+
+<!-- search_form.jsp - the form on the page Search Book -->
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="miscellaneous.AquaMethods"%>
 
@@ -11,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Search Book</title>
+        <title>Aqua Books - Search Book</title>
         
         <script src="JavaScript/ValidationJS.js"></script>
         
@@ -19,31 +21,6 @@
             NUM_FIELDS = 7; // number of the input fields on the form
             INPUT_FIELDS = 12;  
         
-            // setFocus: sets the focus on the input field inputfield ( for instance "title" ) on the form with id form_id
-            /*
-            function setFocus1(form_id, inputfield){ // form_id, inputfield
-                alert("search form" + form_id);
-                
-                if ( document.forms["search_book"]["title"].value == "" ){ 
-                    alert("if branch");
-                    document.getElementById("title").focus();
-                } else {
-                    alert("else branch");
-                }
-                
-            }
-            
-            // setFocus: sets the focus on the input field inputfield ( for instance "prev_title" )
-            function setMyFocus(inputfield){
-                alert("myFocus");
-                
-                if ( document.forms["search_book"][inputfield].value == "" ){ 
-                    alert("myFocus - if");
-                    document.getElementById(inputfield).focus();
-                }
-                
-            }
-            */
             // setCookie: creates cookie inputI = value in the input field ; ( I - number 0..2 )
             function setCookie() {           
                 var i;
@@ -76,6 +53,7 @@
             // to show the previous values 
             hSession.setAttribute("subscribe", "false");
         %>
+        
         <!-- adding a new row to the Bootstrap grid; class whitebckgr is for setting the background to white -->
         <div class="whitebckgr">
             <div class="row"> <!-- adding a new row to the Bootstrap grid -->
@@ -147,17 +125,11 @@
                                                 if (AquaMethods.sessVarExists(hSession2, "input6")) {
                                                     input6 = String.valueOf(hSession2.getAttribute("input6")); // the value that was in the 3rd drop down list
                                                 } 
-                                                
-                                                
-                                                //AquaMethods.setToEmptyInput(request, hSession2); // setToEmpty: set the session variable values to "" for the variables named input0, input1, ...
-                                                //hSession2.setAttribute("page_name", ""); // reseting the sess. var. page_name
                                             } 
-                                            //hSession1.setAttribute("page_name", ""); // reseting the sess. var. page_name
                                         }
                                         hSession2.setAttribute("fill_in", "false"); // the input fields don't need to be filled in
-                                    } else {
-                                        //AquaMethods.setToEmptyInput(request, hSession2 ); // setToEmpty: set the session variable values to "" for the variables named input0, input1, ...
-                                    }
+                                    } 
+                                    
                                     // store on which page I am now in case the user clicks on subscribe button in the footer
                                     hSession2.setAttribute("page_name", PAGE_NAME);
                                     AquaMethods.setToEmptyInput(hSession2 ); // setToEmpty: set the session variable values to "" for the variables named input0, input1, ...
@@ -168,18 +140,18 @@
                                     <div class="form-group"> 
                                         <label for="title">Title</label> <!-- title label -->
                                         <!-- filling in the title is required  -->
-                                        <input type="text" class="form-control form-control-sm" name="title" id="title" maxlength="60" onchange="setCookie()" onfocusout='setFocus("search_book", "title")' required value = "<%= input0 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="title" id="title" maxlength="60" onchange="setCookie()" onfocusout='setFocus("search_book", "title")' required value="<%= input0 %>"> 
                                         <label class="text_color">* Required Field</label>
                                     </div>
                                     <div class="form-group"> 
                                         <label for="author">Author's Name</label> <!-- author's name label -->
-                                        <input type="text" class="form-control form-control-sm" name="author" id="author" maxlength="70" onchange="setCookie()" onfocusout="valLetters(document.search_book.author, author_message, 'false');" value = "<%= input1 %>"> <!-- the input element for author -->
+                                        <input type="text" class="form-control form-control-sm" name="author" id="author" maxlength="70" onchange="setCookie()" onfocusout="valLetters(document.search_book.author, author_message, 'false');" value="<%= input1 %>"> <!-- the input element for author -->
                                         <span id="author_message" class="text_color"></span>
                                     </div>
                 
                                     <div class="form-group">
                                         <label for="isbn">ISBN</label> <!-- ISBN label -->
-                                        <input type="text" class="form-control form-control-sm" name="isbn" id="isbn" maxlength="13" onchange="setCookie();" onfocusout='isNumber("search_book", "isbn", "is_isbn", "isbn_message", document.search_book.isbn)' value = "<%= input2 %>"> <!-- the input element for ISBN -->
+                                        <input type="text" class="form-control form-control-sm" name="isbn" id="isbn" maxlength="13" onchange="setCookie();" onfocusout='isNumber("search_book", "isbn", "is_isbn", "isbn_message", document.search_book.isbn)' value="<%= input2 %>"> <!-- the input element for ISBN -->
                                         <span id="isbn_message" class="text_color"></span>
                                     </div>
                 
@@ -237,15 +209,15 @@
                                         <!-- creating a drop down list; form-control-sm is used for smaller control -->
                                         <select class="form-control form-control-sm" name="sortby" id="sortby" onchange="setCookie()"> 
                                             <% if (input4.equalsIgnoreCase("low")){ %>
-                                                <option value="low" selected>Price ( Low - High )</option> <!-- options shown in the drop down list -->
+                                                 <option value="low" selected>Price ( Low - High )</option> <!-- options shown in the drop down list -->
                                             <% } else { %>
-                                                <option value="low">Price ( Low - High )</option>
+                                                 <option value="low">Price ( Low - High )</option>
                                             <% } %>
                                             
                                             <% if (input4.equalsIgnoreCase("high")){ %>
-                                                <option value="high" selected>Price ( High - Low )</option> <!-- options shown in the drop down list -->
+                                                 <option value="high" selected>Price ( High - Low )</option> <!-- options shown in the drop down list -->
                                             <% } else { %>
-                                                <option value="high">Price ( High - Low )</option>
+                                                 <option value="high">Price ( High - Low )</option>
                                             <% } %>
                                         </select>
                                     </div>
@@ -255,45 +227,46 @@
                                         <!-- creating a drop down list; form-control-sm is used for narrower control -->
                                         <select class="form-control form-control-sm" name="categ" id="categ" onchange="setCookie()">
                                             <% if (input5.equalsIgnoreCase("all")){ %>
-                                                <option value="all" selected>All Categories</option> <!-- options shown in the drop down list -->
+                                                 <option value="all" selected>All Categories</option> <!-- options shown in the drop down list -->
                                             <% } else { %>
-                                                <option value="all">All Categories</option>
+                                                 <option value="all">All Categories</option>
                                             <% } %>
                                             
                                             <% if (input5.equalsIgnoreCase("fict")){ %>
-                                                <option value="fict" selected>Fiction &amp; Poetry</option> 
+                                                 <option value="fict" selected>Fiction &amp; Poetry</option> 
                                             <% } else { %>
-                                                <option value="fict">Fiction &amp; Poetry</option>   
+                                                 <option value="fict">Fiction &amp; Poetry</option>   
                                             <% } %>
                                             
                                             <% if (input5.equalsIgnoreCase("bus")){ %>
-                                                <option value="bus" selected>Business</option> 
+                                                 <option value="bus" selected>Business</option> 
                                             <% } else { %>
-                                                <option value="bus">Business</option>      
+                                                 <option value="bus">Business</option>      
                                             <% } %>
                                             
                                             <% if (input5.equalsIgnoreCase("comp")){ %>
-                                                <option value="comp" selected>Computing &amp; IT</option> 
+                                                 <option value="comp" selected>Computing &amp; IT</option> 
                                             <% } else { %>
-                                                <option value="comp">Computing &amp; IT</option>  
+                                                 <option value="comp">Computing &amp; IT</option>  
                                             <% } %>
                                             
                                             <% if (input5.equalsIgnoreCase("edu")){ %>
-                                                <option value="edu" selected>Education</option> 
+                                                 <option value="edu" selected>Education</option> 
                                             <% } else { %>
-                                                <option value="edu">Education</option>   
+                                                 <option value="edu">Education</option>   
                                             <% } %>
                                             
                                             <% if (input5.equalsIgnoreCase("child")){ %>
-                                                <option value="child" selected>Children's</option> 
+                                                 <option value="child" selected>Children's</option> 
                                             <% } else { %>
-                                                <option value="child">Children's</option>  
+                                                 <option value="child">Children's</option>  
                                             <% } %>
                                         </select>
                                     </div>
+                                        
                                     <div class="form-group">
                                         <label for="publ_year">Publication Year</label> <!-- publication year label -->
-                                        <input type="text" class="form-control form-control-sm" id="publ_year" name="publ_year" maxlength="4" onchange="setCookie()" onfocusout='isNumber( "search_book", "publ_year", "is_yrpubl", "year_message", document.search_book.publ_year )' value = "<%= input6 %>"> <!-- the input element for the publication year -->
+                                        <input type="text" class="form-control form-control-sm" id="publ_year" name="publ_year" maxlength="4" onchange="setCookie()" onfocusout='isNumber( "search_book", "publ_year", "is_yrpubl", "year_message", document.search_book.publ_year )' value="<%= input6 %>"> <!-- the input element for the publication year -->
                                         <span id="year_message" class="text_color"></span>
                                     </div>
 

@@ -1,7 +1,7 @@
 <%-- 
     Document   : login_page.jsp
     Created on : 31-Mar-2019, 21:19:51
-    Author     : user
+    Author     : Ingrid Farkas
 --%>
 
 <%@page import="java.util.Enumeration"%>
@@ -36,7 +36,7 @@
         </script>    
     </head>
     
-    <title>Login</title>
+    <title>Aqua Books - Login</title>
     <body onload="setDefaults()">
         <%
             final String PAGE_NAME = "login_page.jsp"; // page which is loaded now
@@ -66,15 +66,14 @@
                         <div class="row"> <!-- adding a new row to the Bootstrap grid -->
                             <div class="col">
                                 &nbsp; &nbsp;
-                                <br/>
+                                <br />
                                 <h3>Login</h3> <!-- title on the web page -->
-                                <br/> 
+                                <br /> 
                                 
                                 <form id="login" name="login" action="LoginServlet" method="post">
                                 <!-- creating the input element for the username -->
                                     <div class="form-group">
-                                        <%  //HttpSession hSession = request.getSession(); // retrieve the session to which I am going to add variables
-                                            //HttpSession hSession = AquaMethods.returnSession(request);
+                                        <%  
                                             String input0 = ""; // read the value which was before in the input field username to show it again
                                             // IDEA : fill_in variable is set in SubscrServl.java - true if some of the input session variables were set,
                                             // and they need to be added to the form here - this true if the user BEFORE LOADED THIS PAGE and after that he entered
@@ -95,7 +94,6 @@
                                                         AquaMethods.setToEmptyInput(hSession); // setToEmpty: set the session variable values to "" for the variables named input0, input1, ...
                                                         //hSession.setAttribute("page_name", ""); // reseting the sess. var. page_name
                                                     }
-                                                    //hSession.setAttribute("page_name", ""); // reseting the sess. var. page_name
                                                 }
                                                 hSession.setAttribute("fill_in", "false"); // the input fields don't need to be filled in
                                             } 

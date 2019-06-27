@@ -1,26 +1,20 @@
 /*
  * author: Ingrid Farkas
  * project: Aqua Bookstore
- * SubscribeServl.java : when the user clicks on the Subscribe button ( footer.jsp ) this servlet is called
+ * SubscribeServl.java : after clicking on the Subscribe button ( footer.jsp ) this servlet is called
  */
 package subscrservlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import loginservlet.UserDAO;
 import miscellaneous.AquaMethods;
 
-/**
- *
- * @author user
- */
 public class SubscrServl extends HttpServlet {
 
     /**
@@ -36,7 +30,6 @@ public class SubscrServl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -65,8 +58,6 @@ public class SubscrServl extends HttpServlet {
         processRequest(request, response);
     }
     
-    
-    
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -78,19 +69,16 @@ public class SubscrServl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // processRequest(request, response); @@@@@@@@@@@@@@@@@@@@@@@@@
         String valid_email = "false"; // is the email valid
         String cookie_val = ""; // value of the cookie
         
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {	    
             HttpSession hSession2 = AquaMethods.returnSession(request);
-            
             hSession2.setAttribute("fill_in", "false"); // if there is no cookie with name that starts with "input" then there are no data to be filled in 
             
             // read the text from the subscr_email ( the footer.jsp ) - Email address for the subscription 
             String subscrEmail = request.getParameter("subscr_email"); // the text in the input field subscr_email ( footer.jsp )
-            
             String pageName = "";
             if (AquaMethods.sessVarExists( hSession2, "webpg_name") ) {
                 pageName = String.valueOf( hSession2.getAttribute("webpg_name") );
@@ -103,9 +91,8 @@ public class SubscrServl extends HttpServlet {
                 Cookie[] cookies = request.getCookies();
                 boolean first_time = false; // is it the first cookie with the key which starts with "input" 
 
-
                 // going throught the cookies
-                for (Cookie cookie:cookies){
+                for (Cookie cookie:cookies) {
                     // set the session variable values to "" for the variables named input0, input1, ...
                     String cookie_name = cookie.getName();
                     boolean is_input = cookie_name.startsWith("input", 0); // whether the cookie I have retrieved contains text from one of the input fileds
@@ -125,7 +112,6 @@ public class SubscrServl extends HttpServlet {
                         // loaded has to be loaded with the values - these values are the values I am writing to the session
                         hSession2.setAttribute(cookie_name, cookie_val);
                     }
-                    
                 }  
             }
             
@@ -151,7 +137,6 @@ public class SubscrServl extends HttpServlet {
             hSession2.setAttribute("db_exoccurred", exOccurred );
             // show the page subscrres_page.jsp
             response.sendRedirect("subscrres_page.jsp"); // redirects the response to subscrres_page.jsp
-            // @@@@@@@@@@@@@@@ add here the code for reading where the user was and showing that page
         } catch ( Exception theException){ // Throwable
             
         }
